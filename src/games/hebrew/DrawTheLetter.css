@@ -1,59 +1,404 @@
-.draw-the-letter {
-  width: 100%;
-  max-width: 500px;
+.dtl-fullscreen {
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dtl-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0d47a1 0%, #1565c0 30%, #1976d2 60%, #42a5f5 100%);
+  z-index: 0;
+}
+
+.dtl-back {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 20;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 12px;
+  color: #0d47a1;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  touch-action: manipulation;
+}
+
+.dtl-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 12px 20px;
+  gap: 12px;
+}
+
+.dtl-prompt-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 24px;
+  border-radius: 16px;
   text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-.draw-the-letter-prompt {
-  font-size: 1.25rem;
-  margin-bottom: 4px;
+.dtl-prompt {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0d47a1;
 }
 
-.draw-the-letter-prompt-en {
-  font-size: 0.95rem;
-  color: var(--color-text-muted);
-  margin-bottom: 12px;
+.dtl-prompt-en {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: #42a5f5;
 }
 
-.draw-the-letter-target {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 16px;
+/* ==================== LETTER ROW (image + letter side by side) ==================== */
+.dtl-letter-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  animation: dtl-pop 0.4s ease-out;
 }
 
-.draw-the-letter-canvas-wrapper {
-  width: 100%;
-  max-width: 300px;
-  aspect-ratio: 1;
-  margin: 0 auto 20px;
-  border-radius: var(--border-radius);
+@keyframes dtl-pop {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.dtl-item-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+.dtl-item-image {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #e3f2fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border: 3px solid #e0e0e0;
-  background: #fff;
+  position: relative;
+  flex-shrink: 0;
 }
 
-.draw-the-letter-canvas {
+.dtl-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.dtl-item-emoji {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.dtl-item-emoji--visible {
+  opacity: 1;
+}
+
+.dtl-item-word {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #333;
+}
+
+.dtl-word-highlight {
+  color: #c62828;
+  font-size: 1.6rem;
+}
+
+.dtl-word-rest {
+  color: #0d47a1;
+}
+
+.dtl-item-english {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #78909c;
+  margin-top: 1px;
+}
+
+.dtl-target-card {
+  background: rgba(255, 255, 255, 0.95);
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.dtl-target-letter {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #0d47a1;
+}
+
+.dtl-workspace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.dtl-canvas-frame {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.25);
+  background: white;
+}
+
+.dtl-canvas {
   display: block;
   width: 100%;
   height: 100%;
   touch-action: none;
-  cursor: crosshair;
+  cursor: none;
 }
 
-.draw-the-letter-actions {
+.dtl-canvas--drawing {
+  cursor: none;
+}
+
+/* ==================== TOOLBAR ==================== */
+.dtl-toolbar {
+  display: flex;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 10px 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dtl-tool-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.dtl-tool-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dtl-colors {
+  display: flex;
+  gap: 6px;
+}
+
+.dtl-color-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.15s, border-color 0.15s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.dtl-color-btn:active {
+  transform: scale(0.9);
+}
+
+.dtl-color-btn--active {
+  border-color: white;
+  box-shadow: 0 0 0 2px #333, 0 2px 8px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+}
+
+.dtl-sizes {
+  display: flex;
+  gap: 6px;
+}
+
+.dtl-size-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background: #f5f5f5;
+  cursor: pointer;
+  touch-action: manipulation;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.dtl-size-btn--active {
+  border-color: #333;
+  background: #e0e0e0;
+}
+
+.dtl-size-dot {
+  border-radius: 50%;
+}
+
+/* ==================== FLOATING PEN CURSOR ==================== */
+.dtl-floating-pen {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  transform: translate(-8px, -48px);
+  transition: opacity 0.12s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dtl-floating-pen .dtl-pen-svg {
+  width: 48px;
+  height: 48px;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
+  transition: transform 0.1s;
+}
+
+.dtl-floating-pen--drawing .dtl-pen-svg {
+  transform: scale(0.92) translateY(4px);
+}
+
+.dtl-pen-dot {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.dtl-pen-svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* ==================== ACTIONS ==================== */
+.dtl-actions {
   display: flex;
   gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 
+.dtl-action-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.12s, box-shadow 0.12s;
+  min-height: 48px;
+}
+
+.dtl-action-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dtl-action-btn--clear {
+  background: white;
+  color: #c62828;
+}
+
+.dtl-action-btn--next {
+  background: #ffca28;
+  color: #4e342e;
+}
+
+/* ==================== RESPONSIVE ==================== */
 @media (min-width: 768px) {
-  .draw-the-letter-canvas-wrapper {
-    max-width: 360px;
+  .dtl-workspace {
+    max-width: 420px;
   }
 
-  .draw-the-letter-target {
+  .dtl-letter-row {
+    gap: 18px;
+  }
+
+  .dtl-item-card {
+    padding: 10px 18px;
+    gap: 12px;
+  }
+
+  .dtl-item-image {
+    width: 64px;
+    height: 64px;
+  }
+
+  .dtl-item-word {
+    font-size: 1.6rem;
+  }
+
+  .dtl-word-highlight {
+    font-size: 1.8rem;
+  }
+
+  .dtl-item-english {
+    font-size: 0.8rem;
+  }
+
+  .dtl-target-card {
+    width: 88px;
+    height: 88px;
+    border-radius: 22px;
+  }
+
+  .dtl-target-letter {
     font-size: 3.5rem;
+  }
+
+  .dtl-color-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .dtl-size-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .dtl-action-btn {
+    padding: 14px 32px;
+    font-size: 1.1rem;
   }
 }

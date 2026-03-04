@@ -23,7 +23,7 @@ function MathsSectionHome({ games }) {
   return (
     <div className="section-layout">
       <header className="section-layout-header">
-        <Link to="/" className="section-layout-back">← Back</Link>
+        <Link to="/portal" className="section-layout-back">← Back</Link>
         <h1 className="section-layout-title">Maths Learning</h1>
       </header>
       <main className="section-layout-games">

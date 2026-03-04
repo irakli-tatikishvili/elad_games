@@ -1,7 +1,6 @@
 .home {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
+  position: fixed;
+  inset: 0;
   overflow: hidden;
 }
 
@@ -23,119 +22,131 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.25) 0%,
-    rgba(0, 0, 0, 0.45) 50%,
-    rgba(0, 0, 0, 0.7) 100%
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0.6) 100%
   );
   pointer-events: none;
 }
 
-.home-ctas {
+.home-center {
   position: relative;
   z-index: 1;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding: 24px 16px 32px;
-  padding-bottom: max(32px, env(safe-area-inset-bottom));
+  padding: 0 24px 40px;
+  padding-bottom: max(40px, env(safe-area-inset-bottom));
+  text-align: center;
 }
 
 .home-title {
-  margin: 0 0 4px 0;
-  font-size: 1.75rem;
-  font-weight: 700;
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 800;
   color: white;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.5px;
+  animation: home-fade-up 0.6s ease-out both;
 }
 
 .home-subtitle {
-  margin: 0 0 24px 0;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  margin: 6px 0 0;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  animation: home-fade-up 0.6s 0.15s ease-out both;
 }
 
-.home-sections {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  max-width: 360px;
-}
-
-.home-cta-card {
+.home-enter-btn {
+  margin-top: 28px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px 24px;
-  min-height: 72px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  gap: 12px;
+  padding: 18px 48px;
+  background: linear-gradient(135deg, #ffca28, #ffb300);
+  border-radius: 60px;
   text-decoration: none;
-  color: var(--color-text);
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow:
+    0 6px 0 #f9a825,
+    0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s, box-shadow 0.15s;
   touch-action: manipulation;
+  animation: home-fade-up 0.6s 0.3s ease-out both, home-bounce 2s 1.2s ease-in-out infinite;
 }
 
-.home-cta-card:active {
-  transform: scale(0.98);
+.home-enter-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 3px 0 #f9a825,
+    0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.home-cta-emoji {
-  font-size: 2.25rem;
-  line-height: 1;
-  flex-shrink: 0;
+.home-enter-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #4e342e;
+  letter-spacing: 0.3px;
 }
 
-.home-cta-title {
-  font-size: 1.125rem;
-  font-weight: 600;
+.home-enter-arrow {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #4e342e;
+  transition: transform 0.2s;
+}
+
+.home-enter-btn:hover .home-enter-arrow {
+  transform: translateX(4px);
+}
+
+@keyframes home-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 @media (min-width: 768px) {
-  .home-ctas {
-    justify-content: center;
-    padding: 40px 24px;
+  .home-center {
+    padding-bottom: 48px;
   }
 
   .home-title {
-    font-size: 2.5rem;
-    margin-bottom: 8px;
+    font-size: 3.2rem;
   }
 
   .home-subtitle {
-    font-size: 1.125rem;
-    margin-bottom: 32px;
+    font-size: 1.4rem;
+    margin-top: 8px;
   }
 
-  .home-sections {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 720px;
-    gap: 20px;
+  .home-enter-btn {
+    margin-top: 36px;
+    padding: 22px 60px;
   }
 
-  .home-cta-card {
-    min-width: 200px;
-    min-height: 80px;
-    padding: 24px 28px;
+  .home-enter-text {
+    font-size: 1.6rem;
   }
 
-  .home-cta-card:hover {
+  .home-enter-btn:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  }
-
-  .home-cta-emoji {
-    font-size: 2.75rem;
-  }
-
-  .home-cta-title {
-    font-size: 1.25rem;
+    box-shadow:
+      0 8px 0 #f9a825,
+      0 12px 32px rgba(0, 0, 0, 0.3);
   }
 }

@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
+import Portal from './pages/Portal'
 import HebrewSection from './sections/HebrewSection'
 import MathsSection from './sections/MathsSection'
 import EnglishSection from './sections/EnglishSection'
@@ -8,6 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/portal" element={<Portal />} />
       <Route path="/hebrew" element={<HebrewSection />} />
       <Route path="/hebrew/*" element={<HebrewSection />} />
       <Route path="/maths" element={<MathsSection />} />

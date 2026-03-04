@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import GameLayout from '../../components/GameLayout'
+import { Link } from 'react-router-dom'
 import BigButton from '../../components/BigButton'
 import './BuildTheWord.css'
 
@@ -12,6 +12,8 @@ const ITEMS = [
   { hebrewWord: 'כלב', label: 'Dog', image: `${IMAGE_BASE}/dog.png`, emoji: '🐕' },
   { hebrewWord: 'פיל', label: 'Elephant', image: `${IMAGE_BASE}/elephant.png`, emoji: '🐘' },
 ]
+
+const SLOT_COLORS = ['#42a5f5', '#ef5350', '#66bb6a', '#ffa726', '#ab47bc']
 
 function getRandomItem() {
   return ITEMS[Math.floor(Math.random() * ITEMS.length)]
@@ -35,7 +37,6 @@ function BuildTheWord() {
   const [imageError, setImageError] = useState(false)
   const [dragging, setDragging] = useState(null)
   const [dragPos, setDragPos] = useState({ x: 0, y: 0 })
-  const containerRef = useRef(null)
 
   const { item } = round
   const targetLetters = item.hebrewWord.split('')
@@ -108,82 +109,112 @@ function BuildTheWord() {
   }
 
   return (
-    <GameLayout title="Build the Word" backTo="/hebrew">
-      <div className="build-the-word" dir="rtl" lang="he" ref={containerRef}>
-        <p className="build-the-word-prompt">בנה את המילה</p>
-        <p className="build-the-word-prompt-en">Drag the letters to build the word</p>
-        <div className="build-the-word-display">
-          {!imageError ? (
-            <img src={item.image} alt={item.label} onError={() => setImageError(true)} />
-          ) : null}
-          <span className={`build-the-word-emoji-fallback ${imageError ? 'build-the-word-emoji-fallback--visible' : ''}`}>
-            {item.emoji}
-          </span>
+    <div className="btw-fullscreen" dir="rtl" lang="he">
+      <div className="btw-bg" />
+      <div className="btw-bg-shapes">
+        <span className="btw-shape btw-shape--1">✏️</span>
+        <span className="btw-shape btw-shape--2">📝</span>
+        <span className="btw-shape btw-shape--3">🔤</span>
+      </div>
+
+      <Link to="/hebrew" className="btw-back" dir="ltr">← Back</Link>
+
+      <div className="btw-content">
+        <div className="btw-prompt-card">
+          <p className="btw-prompt">בנה את המילה</p>
+          <p className="btw-prompt-en">Drag letters to build the word</p>
         </div>
-        <div className="build-the-word-slots">
-          {currentSlots.map((letter, i) => (
-            <div
-              key={i}
-              data-slot-index={i}
-              className={`build-the-word-slot ${!letter ? 'build-the-word-slot--empty' : ''}`}
-            >
-              {letter ? (
-                <span
-                  className="build-the-word-slot-letter"
-                  onPointerDown={(e) => handlePointerDown(e, letter, 'slot', i)}
-                >
-                  {letter}
-                </span>
-              ) : (
-                <span className="build-the-word-slot-placeholder">?</span>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="build-the-word-pool">
-          {currentPool.map((letter, i) => (
-            <span
-              key={`${letter}-${i}`}
-              className="build-the-word-pool-letter"
-              onPointerDown={(e) => handlePointerDown(e, letter, 'pool', i)}
-            >
-              {letter}
+
+        <div className="btw-item-card">
+          <div className="btw-image-frame">
+            {!imageError ? (
+              <img src={item.image} alt={item.label} onError={() => setImageError(true)} />
+            ) : null}
+            <span className={`btw-emoji-fallback ${imageError ? 'btw-emoji-fallback--visible' : ''}`}>
+              {item.emoji}
             </span>
-          ))}
+          </div>
         </div>
+
+        <div className="btw-slots-section">
+          <div className="btw-slots">
+            {currentSlots.map((letter, i) => (
+              <div
+                key={i}
+                data-slot-index={i}
+                className={`btw-slot ${letter ? 'btw-slot--filled' : ''}`}
+                style={{ '--slot-color': SLOT_COLORS[i % SLOT_COLORS.length] }}
+              >
+                {letter ? (
+                  <span
+                    className="btw-slot-letter"
+                    onPointerDown={(e) => handlePointerDown(e, letter, i, i)}
+                  >
+                    {letter}
+                  </span>
+                ) : (
+                  <span className="btw-slot-placeholder">{i + 1}</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="btw-pool-section">
+          <p className="btw-pool-label">Available letters:</p>
+          <div className="btw-pool">
+            {currentPool.map((letter, i) => (
+              <span
+                key={`${letter}-${i}`}
+                className="btw-pool-letter"
+                onPointerDown={(e) => handlePointerDown(e, letter, 'pool', i)}
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                {letter}
+              </span>
+            ))}
+          </div>
+        </div>
+
         <button
           type="button"
-          className="build-the-word-reset"
+          className="btw-reset"
           onClick={resetWord}
           disabled={!!feedback}
         >
-          Start over
+          🔄 Start over
         </button>
+
         {feedback === 'correct' && (
-          <div className="build-the-word-feedback build-the-word-feedback--success">
-            <span className="build-the-word-emoji">🎉</span>
-            <p>כל הכבוד!</p>
-            <p className="build-the-word-feedback-en">Good job!</p>
-            <BigButton onClick={playAgain}>Play again</BigButton>
+          <div className="btw-feedback btw-feedback--success">
+            <div className="btw-stars">
+              <span style={{ animationDelay: '0s' }}>⭐</span>
+              <span style={{ animationDelay: '0.15s' }}>🌟</span>
+              <span style={{ animationDelay: '0.3s' }}>⭐</span>
+            </div>
+            <p className="btw-feedback-text">כל הכבוד!</p>
+            <p className="btw-feedback-sub">Good job!</p>
+            <BigButton onClick={playAgain} variant="success">Next word</BigButton>
           </div>
         )}
         {feedback === 'wrong' && (
-          <div className="build-the-word-feedback build-the-word-feedback--wrong">
-            <p>נסה שוב! המילה היא {item.hebrewWord}</p>
-            <p className="build-the-word-feedback-en">Try again! The word is {item.hebrewWord}</p>
+          <div className="btw-feedback btw-feedback--wrong">
+            <p className="btw-feedback-text">נסה שוב!</p>
+            <p className="btw-feedback-sub">The word is {item.hebrewWord}</p>
             <BigButton onClick={playAgain}>Try again</BigButton>
           </div>
         )}
       </div>
+
       {dragging && (
         <div
-          className="build-the-word-drag-preview"
+          className="btw-drag-preview"
           style={{ left: dragPos.x, top: dragPos.y }}
         >
           {dragging.letter}
         </div>
       )}
-    </GameLayout>
+    </div>
   )
 }
 

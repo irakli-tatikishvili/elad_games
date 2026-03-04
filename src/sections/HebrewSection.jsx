@@ -27,7 +27,7 @@ function HebrewSectionHome({ games }) {
   return (
     <div className="section-layout" dir="rtl" lang="he">
       <header className="section-layout-header">
-        <Link to="/" className="section-layout-back">← Back</Link>
+        <Link to="/portal" className="section-layout-back">← Back</Link>
         <h1 className="section-layout-title">Hebrew Learning</h1>
       </header>
       <main className="section-layout-games">
