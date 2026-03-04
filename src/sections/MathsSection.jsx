@@ -1,9 +1,11 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import CountTheObjects from '../games/maths/CountTheObjects'
+import IceCreamSeller from '../games/maths/IceCreamSeller'
 import './SectionLayout.css'
 
 const games = [
   { path: 'count-the-objects', title: 'Count the Objects', component: CountTheObjects },
+  { path: 'ice-cream-seller', title: 'Ice Cream Seller', component: IceCreamSeller },
 ]
 
 function MathsSection() {

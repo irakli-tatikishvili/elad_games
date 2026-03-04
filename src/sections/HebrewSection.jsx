@@ -1,9 +1,15 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import TapTheLetter from '../games/hebrew/TapTheLetter'
+import FirstLetter from '../games/hebrew/FirstLetter'
+import BuildTheWord from '../games/hebrew/BuildTheWord'
+import DrawTheLetter from '../games/hebrew/DrawTheLetter'
 import './SectionLayout.css'
 
 const games = [
   { path: 'tap-the-letter', title: 'Tap the Letter', component: TapTheLetter },
+  { path: 'first-letter', title: 'First Letter', component: FirstLetter },
+  { path: 'build-the-word', title: 'Build the Word', component: BuildTheWord },
+  { path: 'draw-the-letter', title: 'Draw the Letter', component: DrawTheLetter },
 ]
 
 function HebrewSection() {

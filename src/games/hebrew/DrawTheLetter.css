@@ -1,0 +1,59 @@
+.draw-the-letter {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.draw-the-letter-prompt {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.draw-the-letter-prompt-en {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.draw-the-letter-target {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.draw-the-letter-canvas-wrapper {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1;
+  margin: 0 auto 20px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 3px solid #e0e0e0;
+  background: #fff;
+}
+
+.draw-the-letter-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.draw-the-letter-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .draw-the-letter-canvas-wrapper {
+    max-width: 360px;
+  }
+
+  .draw-the-letter-target {
+    font-size: 3.5rem;
+  }
+}

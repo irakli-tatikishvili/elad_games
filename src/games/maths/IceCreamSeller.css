@@ -1,0 +1,488 @@
+.ics-fullscreen {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ==================== SKY ==================== */
+.ics-sky {
+  position: absolute;
+  inset: 0 0 40% 0;
+  background: linear-gradient(180deg, #4fc3f7 0%, #81d4fa 50%, #b3e5fc 100%);
+  z-index: 0;
+}
+
+.ics-sun {
+  position: absolute;
+  top: 4%;
+  right: 8%;
+  width: 60px;
+  height: 60px;
+  animation: ics-spin-slow 30s linear infinite;
+}
+
+.ics-svg-sun { width: 100%; height: 100%; }
+
+@keyframes ics-spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ics-cloud {
+  position: absolute;
+  width: 120px;
+}
+
+.ics-cloud--1 { top: 8%; left: -5%; animation: ics-drift 25s linear infinite; }
+.ics-cloud--2 { top: 20%; left: 30%; width: 90px; animation: ics-drift 35s linear infinite; }
+.ics-cloud--3 { top: 5%; left: 60%; width: 100px; animation: ics-drift 30s linear infinite reverse; }
+
+.ics-svg-cloud { width: 100%; height: auto; }
+
+@keyframes ics-drift {
+  from { transform: translateX(-140px); }
+  to { transform: translateX(calc(100vw + 140px)); }
+}
+
+/* ==================== GROUND ==================== */
+.ics-grass {
+  position: absolute;
+  top: 60%;
+  left: 0;
+  right: 0;
+  height: 16%;
+  background: linear-gradient(180deg, #66bb6a 0%, #43a047 100%);
+  z-index: 0;
+}
+
+.ics-road {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 24%;
+  background: #546e7a;
+  z-index: 1;
+}
+
+.ics-road-lines {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transform: translateY(-50%);
+  background: repeating-linear-gradient(
+    90deg,
+    #fdd835 0px, #fdd835 24px,
+    transparent 24px, transparent 48px
+  );
+}
+
+/* Sidewalk edge */
+.ics-road::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: #bdbdbd;
+}
+
+/* ==================== UI ==================== */
+.ics-back {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 20;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  color: #1976d2;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  touch-action: manipulation;
+}
+
+.ics-scoreboard {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ics-scoreboard .ics-svg-cone {
+  width: 28px;
+  height: auto;
+}
+
+/* ==================== TRUCK ==================== */
+.ics-truck-area {
+  position: absolute;
+  left: 2%;
+  bottom: 24%;
+  z-index: 10;
+  width: 46%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.ics-truck-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.ics-svg-truck {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+}
+
+.ics-seller-in-window {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28%;
+}
+
+.ics-svg-seller {
+  width: 100%;
+  height: auto;
+}
+
+.ics-dispenser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 16px;
+  background: white;
+  border: 4px solid #66bb6a;
+  border-radius: 16px;
+  cursor: grab;
+  touch-action: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  animation: ics-wiggle 2.5s ease-in-out infinite;
+  transition: transform 0.12s;
+}
+
+.ics-dispenser .ics-svg-cone {
+  width: 44px;
+  height: auto;
+}
+
+.ics-dispenser:active {
+  transform: scale(0.92);
+  cursor: grabbing;
+  animation: none;
+}
+
+@keyframes ics-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-4deg); }
+  40% { transform: rotate(4deg); }
+  60% { transform: rotate(-3deg); }
+  80% { transform: rotate(0deg); }
+}
+
+.ics-dispenser-label {
+  font-size: 0.75rem;
+  color: #388e3c;
+  font-weight: 700;
+}
+
+/* ==================== CUSTOMER ==================== */
+.ics-customer-zone {
+  position: absolute;
+  right: 2%;
+  bottom: 24%;
+  z-index: 10;
+  width: 42%;
+  max-width: 240px;
+  display: flex;
+  justify-content: center;
+}
+
+.ics-customer-walking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: ics-walk-in 1s ease-out;
+}
+
+.ics-svg-walking {
+  width: 60px;
+  height: auto;
+  animation: ics-hop 0.4s ease-in-out infinite;
+}
+
+@keyframes ics-walk-in {
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ics-hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.ics-customer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: ics-pop-in 0.4s ease-out;
+}
+
+@keyframes ics-pop-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.ics-svg-kid {
+  width: 70px;
+  height: auto;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+}
+
+.ics-speech {
+  background: white;
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  color: #333;
+  position: relative;
+}
+
+.ics-speech::after {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-bottom-color: white;
+}
+
+.ics-speech-number {
+  font-size: 1.4rem;
+  color: #e91e63;
+}
+
+.ics-customer-tray {
+  width: 100%;
+  min-height: 60px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 4px dashed #ff9800;
+  border-radius: 16px;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.ics-customer-tray--happy {
+  border-color: #4caf50;
+  background: rgba(200, 255, 200, 0.9);
+  animation: ics-celebrate 0.5s ease-in-out;
+}
+
+@keyframes ics-celebrate {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.ics-tray-ice {
+  animation: ics-drop-in 0.3s ease-out;
+}
+
+.ics-tray-ice .ics-svg-cone {
+  width: 30px;
+  height: auto;
+}
+
+@keyframes ics-drop-in {
+  from { opacity: 0; transform: translateY(-20px) scale(0.5); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.ics-tray-hint {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ff9800;
+}
+
+/* ==================== DRAG PREVIEW ==================== */
+.ics-drag-preview {
+  position: fixed;
+  z-index: 100;
+  width: 56px;
+  margin-left: -28px;
+  margin-top: -40px;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+  animation: ics-drag-pop 0.15s ease-out;
+}
+
+.ics-drag-preview .ics-svg-cone {
+  width: 100%;
+  height: auto;
+}
+
+@keyframes ics-drag-pop {
+  from { transform: scale(0.5); }
+  to { transform: scale(1); }
+}
+
+/* ==================== OVERLAYS ==================== */
+.ics-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.ics-overlay--success {
+  background: rgba(76, 175, 80, 0.88);
+  animation: ics-fade-in 0.3s ease-out;
+}
+
+.ics-overlay--wrong {
+  background: rgba(255, 152, 0, 0.92);
+  animation: ics-fade-in 0.3s ease-out;
+}
+
+@keyframes ics-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ics-overlay-stars {
+  display: flex;
+  gap: 12px;
+  font-size: 3rem;
+}
+
+.ics-overlay-stars span:nth-child(1) { animation: ics-star-pop 0.5s ease-out 0s both; }
+.ics-overlay-stars span:nth-child(2) { animation: ics-star-pop 0.5s ease-out 0.15s both; font-size: 4rem; }
+.ics-overlay-stars span:nth-child(3) { animation: ics-star-pop 0.5s ease-out 0.3s both; }
+
+@keyframes ics-star-pop {
+  from { opacity: 0; transform: scale(0) rotate(-30deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.ics-overlay p {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.ics-overlay-sub {
+  font-size: 1rem !important;
+  opacity: 0.9;
+}
+
+.ics-retry {
+  margin-top: 8px;
+  padding: 14px 36px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: white;
+  color: #e65100;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.ics-retry:active {
+  transform: scale(0.96);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (min-width: 768px) {
+  .ics-truck-area {
+    left: 6%;
+    max-width: 320px;
+  }
+
+  .ics-customer-zone {
+    right: 6%;
+    max-width: 280px;
+  }
+
+  .ics-svg-kid {
+    width: 90px;
+  }
+
+  .ics-speech {
+    font-size: 1.3rem;
+    padding: 10px 18px;
+  }
+
+  .ics-speech-number {
+    font-size: 1.6rem;
+  }
+
+  .ics-dispenser .ics-svg-cone {
+    width: 52px;
+  }
+
+  .ics-tray-ice .ics-svg-cone {
+    width: 36px;
+  }
+
+  .ics-overlay p {
+    font-size: 2rem;
+  }
+
+  .ics-sun {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ics-truck-area {
+    left: 12%;
+    max-width: 350px;
+  }
+
+  .ics-customer-zone {
+    right: 12%;
+    max-width: 300px;
+  }
+}

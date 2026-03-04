@@ -1,0 +1,207 @@
+.build-the-word {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.build-the-word-prompt {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.build-the-word-prompt-en {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+.build-the-word-display {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-card);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+}
+
+.build-the-word-display img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.build-the-word-display .build-the-word-emoji-fallback {
+  display: none;
+  font-size: 4rem;
+}
+
+.build-the-word-display .build-the-word-emoji-fallback--visible {
+  display: flex;
+}
+
+.build-the-word-slots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.build-the-word-slot {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-card);
+  border: 3px dashed #ccc;
+  border-radius: 12px;
+  touch-action: none;
+}
+
+.build-the-word-slot--empty {
+  border-color: #aaa;
+  background: #f8f9fa;
+}
+
+.build-the-word-slot-letter {
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.build-the-word-slot-letter:active {
+  cursor: grabbing;
+}
+
+.build-the-word-slot-placeholder {
+  font-size: 1.5rem;
+  color: #bbb;
+}
+
+.build-the-word-pool {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  min-height: 64px;
+}
+
+.build-the-word-pool-letter {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: bold;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.build-the-word-pool-letter:active {
+  cursor: grabbing;
+}
+
+.build-the-word-reset {
+  margin-bottom: 16px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  background: var(--color-card);
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.build-the-word-reset:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.build-the-word-feedback {
+  padding: 24px;
+  border-radius: var(--border-radius);
+  margin-top: 16px;
+}
+
+.build-the-word-feedback--success {
+  background: #d4edda;
+}
+
+.build-the-word-feedback--wrong {
+  background: #fff3cd;
+}
+
+.build-the-word-emoji {
+  display: block;
+  font-size: 4rem;
+  margin-bottom: 8px;
+}
+
+.build-the-word-feedback p {
+  margin: 6px 0;
+  font-size: 1.125rem;
+}
+
+.build-the-word-feedback-en {
+  font-size: 1rem !important;
+  color: var(--color-text-muted);
+}
+
+.build-the-word-drag-preview {
+  position: fixed;
+  width: 56px;
+  height: 56px;
+  margin-left: -28px;
+  margin-top: -28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@media (min-width: 768px) {
+  .build-the-word-slot {
+    width: 64px;
+    height: 64px;
+  }
+
+  .build-the-word-slot-letter {
+    font-size: 2.25rem;
+  }
+
+  .build-the-word-pool-letter {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .build-the-word-drag-preview {
+    width: 64px;
+    height: 64px;
+    margin-left: -32px;
+    margin-top: -32px;
+    font-size: 2.25rem;
+  }
+}
