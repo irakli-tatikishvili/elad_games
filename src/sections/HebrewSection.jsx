@@ -1,0 +1,38 @@
+import { Routes, Route, Link } from 'react-router-dom'
+import TapTheLetter from '../games/hebrew/TapTheLetter'
+import './SectionLayout.css'
+
+const games = [
+  { path: 'tap-the-letter', title: 'Tap the Letter', component: TapTheLetter },
+]
+
+function HebrewSection() {
+  return (
+    <Routes>
+      <Route path="/" element={<HebrewSectionHome games={games} />} />
+      {games.map(({ path, component: Game }) => (
+        <Route key={path} path={path} element={<Game />} />
+      ))}
+    </Routes>
+  )
+}
+
+function HebrewSectionHome({ games }) {
+  return (
+    <div className="section-layout" dir="rtl" lang="he">
+      <header className="section-layout-header">
+        <Link to="/" className="section-layout-back">← Back</Link>
+        <h1 className="section-layout-title">Hebrew Learning</h1>
+      </header>
+      <main className="section-layout-games">
+        {games.map(({ path, title }) => (
+          <Link key={path} to={path} className="section-layout-game-card">
+            {title}
+          </Link>
+        ))}
+      </main>
+    </div>
+  )
+}
+
+export default HebrewSection
