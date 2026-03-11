@@ -1,0 +1,425 @@
+/* ==================== FULLSCREEN ==================== */
+.sbl-fullscreen {
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.sbl-bg {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #87ceeb 0%, #b3e5fc 50%, #e1f5fe 100%);
+  z-index: 0;
+}
+
+/* ==================== SCENERY ==================== */
+.sbl-grass {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30vh;
+  background: linear-gradient(180deg, #66bb6a 0%, #4caf50 30%, #388e3c 100%);
+  border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+  z-index: 1;
+}
+
+.sbl-cloud {
+  position: fixed;
+  z-index: 1;
+  width: 100px;
+  height: 40px;
+  background: white;
+  border-radius: 40px;
+  opacity: 0.7;
+}
+
+.sbl-cloud::before,
+.sbl-cloud::after {
+  content: '';
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+}
+
+.sbl-cloud::before {
+  width: 50px;
+  height: 50px;
+  top: -20px;
+  left: 15px;
+}
+
+.sbl-cloud::after {
+  width: 36px;
+  height: 36px;
+  top: -12px;
+  right: 15px;
+}
+
+.sbl-cloud--1 {
+  top: 6%;
+  left: 10%;
+  animation: sbl-drift 20s linear infinite;
+}
+
+.sbl-cloud--2 {
+  top: 12%;
+  right: 5%;
+  width: 80px;
+  height: 32px;
+  animation: sbl-drift 28s 5s linear infinite;
+  opacity: 0.5;
+}
+
+.sbl-cloud--3 {
+  top: 4%;
+  left: 50%;
+  width: 70px;
+  height: 28px;
+  animation: sbl-drift 24s 12s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes sbl-drift {
+  from { transform: translateX(-120px); }
+  to { transform: translateX(calc(100vw + 120px)); }
+}
+
+/* ==================== BACK ==================== */
+.sbl-back {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 30;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 14px;
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  touch-action: manipulation;
+}
+
+/* ==================== CONTENT ==================== */
+.sbl-content {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 16px 32px;
+  gap: 14px;
+}
+
+/* ==================== SPEECH BUBBLE ==================== */
+.sbl-speech {
+  background: white;
+  padding: 12px 24px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  position: relative;
+  animation: sbl-pop 0.35s ease-out;
+  max-width: 320px;
+}
+
+.sbl-speech::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: white transparent transparent;
+}
+
+.sbl-speech-text {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #37474f;
+}
+
+.sbl-speech-num {
+  display: inline-block;
+  background: linear-gradient(135deg, #e53935, #ef5350);
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 800;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 50%;
+  text-align: center;
+  margin: 0 4px;
+  vertical-align: middle;
+  box-shadow: 0 2px 6px rgba(229, 57, 53, 0.4);
+}
+
+.sbl-speech-sub {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  color: #78909c;
+  font-weight: 500;
+}
+
+.sbl-speech--result .sbl-speech-text {
+  font-size: 1.25rem;
+}
+
+@keyframes sbl-pop {
+  from { opacity: 0; transform: scale(0.85) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ==================== LION ==================== */
+.sbl-lion {
+  width: 160px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s;
+}
+
+.sbl-lion-svg {
+  width: 100%;
+  height: auto;
+}
+
+.sbl-lion--eating {
+  animation: sbl-nom 0.4s ease-in-out;
+}
+
+.sbl-lion--full {
+  animation: sbl-wobble 0.6s ease-in-out;
+}
+
+.sbl-lion--happy {
+  animation: sbl-bounce-happy 0.6s ease-in-out;
+}
+
+@keyframes sbl-nom {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@keyframes sbl-wobble {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg) scale(1.05); }
+  50% { transform: rotate(5deg) scale(1.05); }
+  75% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes sbl-bounce-happy {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-12px); }
+  60% { transform: translateY(-6px); }
+}
+
+.sl-lion-mouth-open {
+  animation: sbl-chomp 0.3s ease-in-out;
+}
+
+@keyframes sbl-chomp {
+  0%, 100% { ry: 10; }
+  50% { ry: 14; }
+}
+
+.sl-lion-belly {
+  animation: sbl-belly-grow 0.5s ease-out;
+}
+
+@keyframes sbl-belly-grow {
+  from { rx: 20; ry: 10; opacity: 0; }
+  to { rx: 45; ry: 32; opacity: 0.8; }
+}
+
+.sl-lion-dizzy {
+  animation: sbl-spin 1s linear infinite;
+}
+
+@keyframes sbl-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==================== FED COUNTER ==================== */
+.sbl-fed-counter {
+  display: flex;
+  gap: 2px;
+  margin-top: -6px;
+  min-height: 20px;
+}
+
+.sbl-fed-berry {
+  font-size: 0.9rem;
+  animation: sbl-pop 0.3s ease-out;
+}
+
+/* ==================== STRAWBERRY PATCH ==================== */
+.sbl-patch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: sbl-pop 0.4s ease-out;
+}
+
+.sbl-patch-label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2e7d32;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 6px 16px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.sbl-berries {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 360px;
+}
+
+.sbl-berry-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border: 3px solid rgba(229, 57, 53, 0.2);
+  border-radius: 16px;
+  padding: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.15s, opacity 0.3s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sbl-berry-btn:not(.sbl-berry-btn--fed):active {
+  transform: scale(0.88);
+  border-color: #e53935;
+}
+
+.sbl-berry-btn--fed {
+  opacity: 0.2;
+  transform: scale(0.8);
+  cursor: default;
+  border-color: transparent;
+}
+
+/* ==================== RESULT ==================== */
+.sbl-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: sbl-pop 0.4s ease-out;
+}
+
+.sbl-stars {
+  display: flex;
+  gap: 6px;
+}
+
+.sbl-stars span {
+  font-size: 2rem;
+  animation: sbl-star-pop 0.5s ease-out both;
+}
+
+@keyframes sbl-star-pop {
+  from { opacity: 0; transform: scale(0) rotate(-30deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.sbl-btn {
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.12s, box-shadow 0.12s;
+  min-height: 52px;
+}
+
+.sbl-btn:active {
+  transform: translateY(3px);
+}
+
+.sbl-btn--next {
+  background: linear-gradient(135deg, #ffca28, #ffb300);
+  color: #4e342e;
+  box-shadow: 0 5px 0 #f9a825, 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.sbl-btn--retry {
+  background: white;
+  color: #c62828;
+  box-shadow: 0 5px 0 #e0e0e0, 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ==================== FLYING BERRY ==================== */
+.sbl-flying-berry {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  font-size: 2rem;
+  z-index: 50;
+  pointer-events: none;
+  animation: sbl-fly 0.5s ease-in forwards;
+}
+
+@keyframes sbl-fly {
+  from {
+    transform: translate(-50%, 60px) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -80px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (min-width: 768px) {
+  .sbl-lion {
+    width: 200px;
+    height: 220px;
+  }
+
+  .sbl-speech {
+    padding: 16px 32px;
+  }
+
+  .sbl-speech-text {
+    font-size: 1.35rem;
+  }
+
+  .sbl-speech-num {
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    font-size: 1.6rem;
+  }
+
+  .sbl-berry-btn {
+    padding: 10px;
+  }
+
+  .sbl-btn {
+    padding: 16px 40px;
+    font-size: 1.2rem;
+  }
+}

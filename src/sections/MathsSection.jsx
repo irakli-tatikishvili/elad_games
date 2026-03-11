@@ -1,11 +1,13 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import CountTheObjects from '../games/maths/CountTheObjects'
 import IceCreamSeller from '../games/maths/IceCreamSeller'
+import StrawberryLion from '../games/maths/StrawberryLion'
 import './SectionLayout.css'
 
 const games = [
   { path: 'count-the-objects', title: 'Count the Objects', desc: 'How many do you see?', emoji: '🍎', component: CountTheObjects },
   { path: 'ice-cream-seller', title: 'Ice Cream Seller', desc: 'Serve ice cream to kids!', emoji: '🍦', component: IceCreamSeller },
+  { path: 'strawberry-lion', title: 'Strawberry Lion', desc: 'Feed the hungry lion!', emoji: '🦁', component: StrawberryLion },
 ]
 
 const theme = {
