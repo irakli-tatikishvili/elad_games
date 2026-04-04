@@ -1,0 +1,79 @@
+/**
+ * Design tokens — kid-friendly UI + illustration system.
+ * Use in CSS via var(--illo-*). Use src/theme/tokens.js in inline SVG / JS.
+ */
+:root {
+  /* Typography & layout (global) */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans Hebrew', 'Noto Sans', sans-serif;
+  --text-display: clamp(1.65rem, 4.2vw, 2.75rem);
+  --text-title: clamp(1.35rem, 3.2vw, 2rem);
+  --text-body: 1rem;
+  --text-caption: 0.8125rem;
+  --leading-tight: 1.2;
+  --leading-body: 1.5;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.07);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-float: 0 12px 36px rgba(0, 0, 0, 0.14);
+  --shadow-lift: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  --game-chrome-bg: rgba(255, 255, 255, 0.96);
+  --game-chrome-radius: 14px;
+  --game-chrome-shadow: var(--shadow-md);
+
+  /* Illustration: strokes & surfaces */
+  --illo-stroke: #37474f;
+  --illo-stroke-soft: rgba(55, 71, 79, 0.35);
+  --illo-surface-paper: #fffef7;
+  --illo-surface-cream: #fff8e1;
+  --illo-surface-sky: #e3f2fd;
+  --illo-shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --illo-shadow-card: 0 4px 14px rgba(0, 0, 0, 0.1);
+  --illo-radius-card: 18px;
+  --illo-radius-pill: 999px;
+  --illo-stroke-width: 2.5;
+  --illo-illustration-ink: #333333;
+
+  /* Accent (games / highlights) */
+  --illo-accent-warm: #ff9800;
+  --illo-accent-pink: #ec407a;
+  --illo-accent-mint: #66bb6a;
+  --illo-accent-lavender: #7e57c2;
+
+  /* UI icon color (inherits in Lucide via currentColor) */
+  --icon-nav-size: 1.75rem;
+  --icon-card-size: 2rem;
+  --icon-muted: rgba(255, 255, 255, 0.92);
+}
+
+/* Reusable fullscreen-game chrome */
+.app-game-back {
+  padding: var(--space-3) var(--space-4);
+  background: var(--game-chrome-bg);
+  border-radius: var(--game-chrome-radius);
+  box-shadow: var(--game-chrome-shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.app-game-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--game-chrome-bg);
+  border-radius: var(--game-chrome-radius);
+  box-shadow: var(--game-chrome-shadow);
+  font-weight: 800;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

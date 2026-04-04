@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BigButton from '../../components/BigButton'
+import GamePicture from '../../components/GamePicture'
+import SuccessKid from '../../components/SuccessKid'
 import './FirstLetter.css'
 
 const IMAGE_BASE = '/images/hebrew/first-letter'
@@ -71,18 +73,17 @@ function FirstLetter() {
         <span className="fl-shape fl-shape--4">ד</span>
       </div>
 
-      <Link to="/hebrew" className="fl-back" dir="ltr">← Back</Link>
+      <Link to="/hebrew" className="fl-back app-game-back" dir="ltr">← חזרה</Link>
 
       <div className="fl-content">
         <div className="fl-prompt-card">
           <p className="fl-prompt">מה האות הראשונה?</p>
-          <p className="fl-prompt-en">What is the first letter?</p>
         </div>
 
         <div className="fl-item-card">
           <div className="fl-image-frame">
             {!imageError ? (
-              <img src={item.image} alt={item.label} onError={() => setImageError(true)} />
+              <GamePicture pngUrl={item.image} alt={item.label} onError={() => setImageError(true)} />
             ) : null}
             <span className={`fl-emoji-fallback ${imageError ? 'fl-emoji-fallback--visible' : ''}`}>
               {item.emoji}
@@ -120,23 +121,17 @@ function FirstLetter() {
           })}
         </div>
 
+        {feedback === 'correct' && <SuccessKid />}
         {feedback === 'correct' && (
           <div className="fl-feedback fl-feedback--success">
-            <div className="fl-stars">
-              <span style={{ animationDelay: '0s' }}>⭐</span>
-              <span style={{ animationDelay: '0.15s' }}>🌟</span>
-              <span style={{ animationDelay: '0.3s' }}>⭐</span>
-            </div>
             <p className="fl-feedback-text">כל הכבוד!</p>
-            <p className="fl-feedback-sub">Good job!</p>
-            <BigButton onClick={playAgain} variant="success">Next</BigButton>
+            <BigButton onClick={playAgain} variant="success">הבא</BigButton>
           </div>
         )}
         {feedback === 'wrong' && (
           <div className="fl-feedback fl-feedback--wrong">
             <p className="fl-feedback-text">האות הראשונה היא <strong>{item.firstLetter}</strong></p>
-            <p className="fl-feedback-sub">The first letter is {item.firstLetter}</p>
-            <BigButton onClick={playAgain}>Try again</BigButton>
+            <BigButton onClick={playAgain}>נסה שוב</BigButton>
           </div>
         )}
       </div>

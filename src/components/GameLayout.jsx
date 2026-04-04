@@ -6,7 +6,7 @@ function GameLayout({ title, backTo, children }) {
     <div className="game-layout">
       <header className="game-layout-header">
         <Link to={backTo} className="game-layout-back">
-          ← Back
+          ← חזרה
         </Link>
         <h2 className="game-layout-title">{title}</h2>
       </header>

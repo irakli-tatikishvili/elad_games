@@ -9,6 +9,7 @@ import {
   CloudSVG,
   SunSVG,
 } from './IceCreamIllustrations'
+import SuccessKid from '../../components/SuccessKid'
 import './IceCreamSeller.css'
 
 function initCustomer() {
@@ -112,8 +113,8 @@ function IceCreamSeller() {
       </div>
 
       {/* UI */}
-      <Link to="/maths" className="ics-back">← Back</Link>
-      <div className="ics-scoreboard">
+      <Link to="/maths" className="ics-back app-game-back">← חזרה</Link>
+      <div className="ics-scoreboard app-game-chip">
         <IceCreamCone flavor={0} />
         <span>{score}</span>
       </div>
@@ -131,7 +132,7 @@ function IceCreamSeller() {
           onPointerDown={handlePointerDown}
         >
           <IceCreamCone flavor={flavorCounter} />
-          <span className="ics-dispenser-label">Drag me!</span>
+          <span className="ics-dispenser-label">גרור אותי!</span>
         </div>
       </div>
 
@@ -145,7 +146,8 @@ function IceCreamSeller() {
           <div className="ics-customer">
             <CartoonKid kidIndex={customer.kidIndex} />
             <div className="ics-speech">
-              <span className="ics-speech-number">{customer.requested}</span> please!
+              <span className="ics-speech-number">{customer.requested}</span>
+              {' '}בבקשה!
             </div>
             <div
               className={`ics-customer-tray ${feedback === 'correct' ? 'ics-customer-tray--happy' : ''}`}
@@ -157,7 +159,7 @@ function IceCreamSeller() {
                       <IceCreamCone flavor={i} />
                     </span>
                   ))
-                : <span className="ics-tray-hint">Drop here!</span>
+                : <span className="ics-tray-hint">שים כאן!</span>
               }
             </div>
           </div>
@@ -175,20 +177,18 @@ function IceCreamSeller() {
       )}
 
       {/* Feedback overlays */}
+      {feedback === 'correct' && <SuccessKid />}
       {feedback === 'correct' && (
         <div className="ics-overlay ics-overlay--success">
-          <div className="ics-overlay-stars">
-            <span>⭐</span><span>🌟</span><span>⭐</span>
-          </div>
-          <p>Yummy! Perfect!</p>
-          <p className="ics-overlay-sub">Next customer coming...</p>
+          <p>טעים! מושלם!</p>
+          <p className="ics-overlay-sub">לקוח הבא מגיע…</p>
         </div>
       )}
       {feedback === 'too-many' && (
         <div className="ics-overlay ics-overlay--wrong">
-          <p>Oops! Too many!</p>
-          <p className="ics-overlay-sub">They wanted {customer?.requested}</p>
-          <button className="ics-retry" onClick={handleTryAgain}>Try again</button>
+          <p>אופס! יותר מדי!</p>
+          <p className="ics-overlay-sub">הם ביקשו {customer?.requested}</p>
+          <button type="button" className="ics-retry" onClick={handleTryAgain}>נסה שוב</button>
         </div>
       )}
     </div>

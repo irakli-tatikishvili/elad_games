@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import GameLayout from '../../components/GameLayout'
 import BigButton from '../../components/BigButton'
+import SuccessKid from '../../components/SuccessKid'
 import './TapTheLetter.css'
 
 // Hebrew alphabet (Alef-Bet) - first 8 letters for demo
@@ -43,9 +44,9 @@ function TapTheLetter() {
   }
 
   return (
-    <GameLayout title="Tap the Letter" backTo="/hebrew">
+    <GameLayout title="לחצו על האות" backTo="/hebrew">
       <div className="tap-the-letter" dir="rtl" lang="he">
-        <p className="tap-the-letter-prompt">Tap the letter: <strong>{targetLetter}</strong></p>
+        <p className="tap-the-letter-prompt">לחצו על האות: <strong>{targetLetter}</strong></p>
         <div className="tap-the-letter-options">
           {letters.map((letter) => (
             <button
@@ -59,17 +60,17 @@ function TapTheLetter() {
             </button>
           ))}
         </div>
+        {feedback === 'correct' && <SuccessKid />}
         {feedback === 'correct' && (
           <div className="tap-the-letter-feedback tap-the-letter-feedback--success">
-            <span className="tap-the-letter-emoji">🎉</span>
-            <p>Good job!</p>
-            <BigButton onClick={playAgain}>Play again</BigButton>
+            <p>כל הכבוד!</p>
+            <BigButton onClick={playAgain}>שחק שוב</BigButton>
           </div>
         )}
         {feedback === 'wrong' && (
           <div className="tap-the-letter-feedback tap-the-letter-feedback--wrong">
-            <p>Try again! Tap the letter {targetLetter}</p>
-            <BigButton onClick={playAgain}>Try again</BigButton>
+            <p>נסה שוב! לחצו על האות {targetLetter}</p>
+            <BigButton onClick={playAgain}>נסה שוב</BigButton>
           </div>
         )}
       </div>

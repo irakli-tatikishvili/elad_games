@@ -1,15 +1,25 @@
 import { Routes, Route, Link } from 'react-router-dom'
+import {
+  BookOpen,
+  Hand,
+  TextSearch,
+  Puzzle,
+  PenLine,
+  LayoutGrid,
+} from 'lucide-react'
 import TapTheLetter from '../games/hebrew/TapTheLetter'
 import FirstLetter from '../games/hebrew/FirstLetter'
 import BuildTheWord from '../games/hebrew/BuildTheWord'
 import DrawTheLetter from '../games/hebrew/DrawTheLetter'
+import LetterAnimalCards from '../games/hebrew/LetterAnimalCards'
 import './SectionLayout.css'
 
 const games = [
-  { path: 'tap-the-letter', title: 'Tap the Letter', desc: 'Find the right letter', emoji: '👆', component: TapTheLetter },
-  { path: 'first-letter', title: 'First Letter', desc: 'What letter starts the word?', emoji: '🔤', component: FirstLetter },
-  { path: 'build-the-word', title: 'Build the Word', desc: 'Drag letters into place', emoji: '🧩', component: BuildTheWord },
-  { path: 'draw-the-letter', title: 'Draw the Letter', desc: 'Trace and draw letters', emoji: '✏️', component: DrawTheLetter },
+  { path: 'tap-the-letter', title: 'Tap the Letter', desc: 'Find the right letter', Icon: Hand, component: TapTheLetter },
+  { path: 'first-letter', title: 'First Letter', desc: 'What letter starts the word?', Icon: TextSearch, component: FirstLetter },
+  { path: 'build-the-word', title: 'Build the Word', desc: 'Drag letters into place', Icon: Puzzle, component: BuildTheWord },
+  { path: 'draw-the-letter', title: 'Draw the Letter', desc: 'Trace and draw letters', Icon: PenLine, component: DrawTheLetter },
+  { path: 'letter-animal-cards', title: 'Letter & Animal Cards', desc: 'Flip cards — letter to animal', Icon: LayoutGrid, component: LetterAnimalCards },
 ]
 
 const theme = {
@@ -38,13 +48,16 @@ function HebrewSectionHome() {
 
       <div className="sl-content">
         <div className="sl-header">
-          <span className="sl-header-icon">אבג</span>
+          <span className="sl-header-icon sl-header-icon--illustrated">
+            <BookOpen className="sl-header-icon-svg" size={30} strokeWidth={2.25} aria-hidden />
+            <span className="sl-header-icon-label">אבג</span>
+          </span>
           <h1 className="sl-title">Hebrew Learning</h1>
           <p className="sl-subtitle">לימוד עברית</p>
         </div>
 
         <div className="sl-grid">
-          {games.map(({ path, title, desc, emoji }, i) => (
+          {games.map(({ path, title, desc, Icon }, i) => (
             <Link
               key={path}
               to={path}
@@ -52,10 +65,13 @@ function HebrewSectionHome() {
               style={{
                 '--card-gradient': theme.cardGradient,
                 '--card-shadow': theme.shadow,
+                '--sl-icon-color': theme.accent,
                 animationDelay: `${0.1 + i * 0.08}s`,
               }}
             >
-              <span className="sl-card-emoji">{emoji}</span>
+              <span className="sl-card-icon-wrap">
+                <Icon className="sl-card-icon" size={36} strokeWidth={2.25} aria-hidden />
+              </span>
               <span className="sl-card-title">{title}</span>
               <span className="sl-card-desc">{desc}</span>
             </Link>

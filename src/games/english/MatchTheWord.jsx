@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BigButton from '../../components/BigButton'
+import GamePicture from '../../components/GamePicture'
+import SuccessKid from '../../components/SuccessKid'
 import './MatchTheWord.css'
 
 const IMAGE_BASE = '/images/english/match-the-word'
@@ -62,17 +64,17 @@ function MatchTheWord() {
         <span className="mtw-letter mtw-letter--4">D</span>
       </div>
 
-      <Link to="/english" className="mtw-back">← Back</Link>
+      <Link to="/english" className="mtw-back app-game-back">← חזרה</Link>
 
       <div className="mtw-content">
         <div className="mtw-prompt-card">
-          <p className="mtw-prompt">Which word matches?</p>
+          <p className="mtw-prompt">איזו מילה באנגלית מתאימה?</p>
         </div>
 
         <div className="mtw-image-card">
           <div className="mtw-image-frame">
             {!imageError ? (
-              <img src={correct.image} alt={correct.word} onError={() => setImageError(true)} />
+              <GamePicture pngUrl={correct.image} alt={correct.word} onError={() => setImageError(true)} />
             ) : null}
             <span className={`mtw-emoji-fallback ${imageError ? 'mtw-emoji-fallback--visible' : ''}`}>
               {correct.emoji}
@@ -106,21 +108,19 @@ function MatchTheWord() {
           })}
         </div>
 
+        {feedback === 'correct' && <SuccessKid />}
         {feedback === 'correct' && (
           <div className="mtw-feedback mtw-feedback--success">
-            <div className="mtw-stars">
-              <span style={{ animationDelay: '0s' }}>⭐</span>
-              <span style={{ animationDelay: '0.15s' }}>🌟</span>
-              <span style={{ animationDelay: '0.3s' }}>⭐</span>
-            </div>
-            <p className="mtw-feedback-text">Good job!</p>
-            <BigButton onClick={playAgain} variant="success">Next</BigButton>
+            <p className="mtw-feedback-text">כל הכבוד!</p>
+            <BigButton onClick={playAgain} variant="success">הבא</BigButton>
           </div>
         )}
         {feedback === 'wrong' && (
           <div className="mtw-feedback mtw-feedback--wrong">
-            <p className="mtw-feedback-text">The word is <strong>{correct.word}</strong> {correct.emoji}</p>
-            <BigButton onClick={playAgain}>Try again</BigButton>
+            <p className="mtw-feedback-text">
+              המילה: <strong>{correct.word}</strong> {correct.emoji}
+            </p>
+            <BigButton onClick={playAgain}>נסה שוב</BigButton>
           </div>
         )}
       </div>

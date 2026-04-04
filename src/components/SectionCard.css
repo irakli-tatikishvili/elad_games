@@ -19,16 +19,24 @@
   transform: scale(0.98);
 }
 
+.section-card-icon {
+  color: var(--color-primary);
+}
+
+.section-card-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  font-size: 3rem;
+  line-height: 1;
+}
+
 @media (min-width: 768px) {
   .section-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   }
-}
-
-.section-card-emoji {
-  font-size: 3rem;
-  line-height: 1;
 }
 
 .section-card-title {

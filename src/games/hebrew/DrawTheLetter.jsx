@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
+import GamePicture from '../../components/GamePicture'
+import { illo } from '../../theme/tokens'
 import './DrawTheLetter.css'
 
 const IMAGE_BASE = '/images/hebrew/draw-the-letter'
@@ -35,7 +37,7 @@ const PEN_COLORS = [
   { color: '#2e7d32', name: 'Green' },
   { color: '#6a1b9a', name: 'Purple' },
   { color: '#e65100', name: 'Orange' },
-  { color: '#333333', name: 'Black' },
+  { color: illo.illustrationInk, name: 'Black' },
 ]
 
 const PEN_SIZES = [
@@ -54,7 +56,7 @@ function PenCursor({ color, size }) {
       <g transform="translate(4, 2) rotate(20, 12, 14)">
         {/* Pen body */}
         <rect x="8" y="0" width="8" height="20" rx="2" fill={color} />
-        <rect x="8" y="0" width="8" height="5" rx="2" fill="#333" />
+        <rect x="8" y="0" width="8" height="5" rx="2" fill={illo.illustrationInk} />
         {/* Pen tip */}
         <polygon points="8,20 16,20 12,28" fill="#aaa" />
         <circle cx="12" cy="27" r="1.2" fill={color} />
@@ -215,19 +217,18 @@ function DrawTheLetter() {
     <div className="dtl-fullscreen" dir="rtl" lang="he">
       <div className="dtl-bg" />
 
-      <Link to="/hebrew" className="dtl-back" dir="ltr">← Back</Link>
+      <Link to="/hebrew" className="dtl-back app-game-back" dir="ltr">← חזרה</Link>
 
       <div className="dtl-content">
         <div className="dtl-prompt-card">
           <p className="dtl-prompt">צייר את האות</p>
-          <p className="dtl-prompt-en">Draw the letter</p>
         </div>
 
         <div className="dtl-letter-row">
           <div className="dtl-item-card">
             <div className="dtl-item-image">
               {!imageError ? (
-                <img src={item.image} alt={item.english} onError={() => setImageError(true)} />
+                <GamePicture pngUrl={item.image} alt={item.english} onError={() => setImageError(true)} />
               ) : null}
               <span className={`dtl-item-emoji ${imageError ? 'dtl-item-emoji--visible' : ''}`}>
                 {item.emoji}
@@ -261,7 +262,7 @@ function DrawTheLetter() {
 
           <div className="dtl-toolbar">
             <div className="dtl-tool-group">
-              <span className="dtl-tool-label">Color</span>
+              <span className="dtl-tool-label">צבע</span>
               <div className="dtl-colors">
                 {PEN_COLORS.map((p) => (
                   <button
@@ -276,7 +277,7 @@ function DrawTheLetter() {
               </div>
             </div>
             <div className="dtl-tool-group">
-              <span className="dtl-tool-label">Size</span>
+              <span className="dtl-tool-label">גודל</span>
               <div className="dtl-sizes">
                 {PEN_SIZES.map((s) => (
                   <button
@@ -295,10 +296,10 @@ function DrawTheLetter() {
 
         <div className="dtl-actions">
           <button type="button" className="dtl-action-btn dtl-action-btn--clear" onClick={handleClear}>
-            🗑️ Clear
+            נקה
           </button>
           <button type="button" className="dtl-action-btn dtl-action-btn--next" onClick={handleNextLetter}>
-            ➡️ Next letter
+            אות הבאה
           </button>
         </div>
       </div>

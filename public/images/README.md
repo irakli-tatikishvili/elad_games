@@ -16,3 +16,14 @@ Drop game images into the folder they belong to.
 | English   | Match the Word    | `english/match-the-word/`      | `cat.png`, `dog.png`, `sun.png`, `star.png` |
 
 **Adding a new game?** Create a folder: `{section}/{game-slug}/` and put the game's images there.
+
+**Machine-readable inventory:** `src/assets/imageInventory.json` lists expected files per game. **URL helpers:** `src/lib/assets.js` and the `GamePicture` component prefer `.webp` when you add it beside `.png`.
+
+## Illustration style (team guide)
+
+- **Format:** Prefer **WebP** for smaller files; keep **PNG** as fallback with the same basename (e.g. `cat.webp` + `cat.png`). Code can load both via `src/lib/assets.js` / `GamePicture`.
+- **Size:** Export at **256–512px** on the long edge, **square** canvases for object cutouts unless the layout needs otherwise.
+- **Background:** **Transparent** PNG/WebP for overlays; flat color only when the game UI expects it.
+- **Naming:** Lowercase, hyphenated or single word (`cat.png`, `ice-cream.png`). Match the filename used in the game’s data file.
+- **Style:** Follow app tokens in `src/theme.css` (stroke grays, warm surfaces). One consistent family per release (flat vector or soft shading—not mixed).
+- **License:** Note source and date in your asset tracker (stock pack name, artist, or CC0 link).

@@ -1,0 +1,349 @@
+/* Letter & Animal Cards — polished playful deck */
+
+.lac {
+  min-height: 100vh;
+  padding: 1.25rem 1rem 3rem;
+  color: #fff;
+  position: relative;
+  overflow-x: hidden;
+  isolation: isolate;
+}
+
+.lac-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(255, 255, 255, 0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 100% 100%, rgba(100, 181, 246, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 45% at 0% 80%, rgba(21, 101, 192, 0.45) 0%, transparent 50%),
+    linear-gradient(168deg, #042a6b 0%, #0d47a1 28%, #1565c0 55%, #1976d2 78%, #1e88e5 100%);
+}
+
+.lac-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.lac-back {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lac-back:hover {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+}
+
+.lac-back:active {
+  transform: scale(0.97);
+}
+
+.lac-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lac-header-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.65rem;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.06) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.lac-header-badge-icon {
+  font-size: 1.45rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.lac-title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.45rem, 4.5vw, 1.95rem);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+}
+
+.lac-subtitle {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.96;
+  padding: 0 0.25rem;
+}
+
+.lac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 0.85rem;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .lac-grid {
+    grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
+    gap: 1.1rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .lac-grid {
+    gap: 1.25rem;
+  }
+}
+
+.lac-card {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  background: transparent;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Hover lift must stay on .lac-card-inner (same element as rotateY), not the button — otherwise the
+   parent transform flattens 3D and the flipped back face disappears while hovering. */
+@media (hover: hover) and (pointer: fine) {
+  .lac-card:hover:not(:disabled):not(.lac-card--flipped) .lac-card-inner {
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  .lac-card:hover:not(:disabled).lac-card--flipped .lac-card-inner {
+    transform: translateY(-4px) scale(1.02) rotateY(180deg);
+  }
+}
+
+.lac-card:focus-visible {
+  outline: none;
+}
+
+.lac-card:focus-visible .lac-card-inner {
+  box-shadow: 0 0 0 3px #fff, 0 0 0 6px #1565c0;
+  border-radius: 18px;
+}
+
+.lac-card-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 18px;
+  transform: translateZ(0);
+}
+
+.lac-card--flipped .lac-card-inner {
+  transform: rotateY(180deg);
+}
+
+.lac-card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.lac-card-face--front {
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 20%, #ffffff 0%, #e8f4fc 45%, #c5e3f6 100%);
+  color: #0a3d7a;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 4px 6px rgba(13, 71, 161, 0.08),
+    0 12px 28px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.lac-card-shine {
+  position: absolute;
+  inset: -40% -20%;
+  background: linear-gradient(
+    125deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.45) 48%,
+    rgba(255, 255, 255, 0.1) 52%,
+    transparent 65%
+  );
+  transform: rotate(-12deg);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.lac-letter {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(2.35rem, 9vw, 3rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9),
+    0 3px 12px rgba(13, 71, 161, 0.25);
+}
+
+.lac-card-hint {
+  position: absolute;
+  bottom: 0.45rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-size: 0.65rem;
+  opacity: 0.45;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.lac-card-face--back {
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 0%, #fffef5 0%, #fff8e1 40%, #ffe8a0 100%);
+  color: #1a237e;
+  transform: rotateY(180deg);
+  padding: 0.55rem 0.45rem 0.5rem;
+  gap: 0.2rem;
+  border: 2px solid rgba(255, 193, 7, 0.65);
+  box-shadow:
+    0 4px 6px rgba(183, 129, 3, 0.12),
+    0 14px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.lac-card-back-frame {
+  position: absolute;
+  inset: 6px;
+  border-radius: 12px;
+  border: 1px dashed rgba(21, 101, 192, 0.2);
+  pointer-events: none;
+}
+
+.lac-img {
+  position: relative;
+  z-index: 1;
+  width: 58%;
+  max-height: 38%;
+  object-fit: contain;
+  margin-bottom: 0.1rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+}
+
+.lac-emoji-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #fff 0%, #fff3e0 100%);
+  box-shadow:
+    0 4px 12px rgba(183, 129, 3, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 193, 7, 0.45);
+  margin-bottom: 0.15rem;
+}
+
+.lac-emoji {
+  font-size: clamp(1.5rem, 6vw, 1.85rem);
+  line-height: 1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+}
+
+.lac-word {
+  position: relative;
+  z-index: 1;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.25;
+  margin-top: 0.1rem;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.06em;
+  padding: 0.2rem 0.35rem 0.25rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.lac-word-first {
+  display: inline-block;
+  padding: 0.12em 0.32em 0.14em;
+  border-radius: 9px;
+  font-size: 1.18em;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(165deg, #1976d2 0%, #0d47a1 100%);
+  box-shadow:
+    0 2px 6px rgba(13, 71, 161, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  line-height: 1;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.lac-word-rest {
+  font-weight: 700;
+  color: #283593;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lac-card-inner {
+    transition: transform 0.35s ease;
+  }
+
+  /* No hover lift; keep flip only */
+  @media (hover: hover) and (pointer: fine) {
+    .lac-card:hover:not(:disabled):not(.lac-card--flipped) .lac-card-inner {
+      transform: translateZ(0);
+    }
+
+    .lac-card:hover:not(:disabled).lac-card--flipped .lac-card-inner {
+      transform: rotateY(180deg);
+    }
+  }
+}

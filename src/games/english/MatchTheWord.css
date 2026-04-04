@@ -230,9 +230,16 @@
   margin-bottom: 8px;
 }
 
-.mtw-stars span {
-  font-size: 2.5rem;
+.mtw-star {
+  font-size: 2.25rem;
+  line-height: 1;
+  color: #ffc107;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   animation: mtw-star-pop 0.5s ease-out both;
+}
+
+.mtw-star--lg {
+  font-size: 3rem;
 }
 
 @keyframes mtw-star-pop {

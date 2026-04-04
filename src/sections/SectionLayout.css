@@ -3,7 +3,7 @@
   position: fixed;
   inset: 0;
   overflow: auto;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-body);
 }
 
 .sl-bg {
@@ -16,17 +16,19 @@
 /* ==================== BACK BUTTON ==================== */
 .sl-back {
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: var(--space-4);
+  left: var(--space-4);
   z-index: 20;
-  padding: 10px 18px;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 14px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--game-chrome-bg);
+  border-radius: var(--game-chrome-radius);
   color: #333;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: var(--text-caption);
   text-decoration: none;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   touch-action: manipulation;
   transition: transform 0.15s;
 }
@@ -45,8 +47,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 72px 20px 40px;
-  gap: 28px;
+  padding: 4.5rem var(--space-5) var(--space-8);
+  gap: var(--space-8);
 }
 
 /* ==================== HEADER ==================== */
@@ -68,19 +70,38 @@
   line-height: 1.2;
 }
 
+.sl-header-icon--illustrated {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sl-header-icon-svg {
+  flex-shrink: 0;
+  color: white;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.sl-header-icon-label {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
 .sl-title {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: var(--text-title);
+  line-height: var(--leading-tight);
   font-weight: 800;
   color: white;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.22);
 }
 
 .sl-subtitle {
-  margin: 4px 0 0;
-  font-size: 1rem;
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-body);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.88);
 }
 
 @keyframes sl-fade-in {
@@ -92,7 +113,7 @@
 .sl-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: var(--space-4);
   width: 100%;
   max-width: 400px;
 }
@@ -102,14 +123,14 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 6px;
-  padding: 24px 14px 20px;
-  background: rgba(255, 255, 255, 0.95);
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4) var(--space-5);
+  background: rgba(255, 255, 255, 0.96);
   border-radius: 20px;
   text-decoration: none;
   box-shadow:
     0 6px 0 rgba(0, 0, 0, 0.06),
-    0 8px 24px rgba(0, 0, 0, 0.12);
+    var(--shadow-md);
   transition: transform 0.15s, box-shadow 0.15s;
   touch-action: manipulation;
   animation: sl-card-in 0.45s ease-out both;
@@ -146,24 +167,30 @@
   }
 }
 
-.sl-card-emoji {
-  font-size: 2.6rem;
-  line-height: 1;
+.sl-card-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.sl-card-icon {
+  color: var(--sl-icon-color, var(--illo-stroke, #37474f));
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .sl-card-title {
-  font-size: 1rem;
+  font-size: var(--text-body);
   font-weight: 700;
   color: #37474f;
-  line-height: 1.2;
+  line-height: var(--leading-tight);
 }
 
 .sl-card-desc {
-  font-size: 0.72rem;
+  font-size: var(--text-caption);
   font-weight: 500;
   color: #90a4ae;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 /* ==================== RESPONSIVE ==================== */
@@ -171,6 +198,10 @@
   .sl-header-icon {
     font-size: 2.8rem;
     padding: 10px 24px;
+  }
+
+  .sl-header-icon-label {
+    font-size: 1.85rem;
   }
 
   .sl-title {
@@ -185,12 +216,12 @@
   .sl-grid {
     grid-template-columns: repeat(2, 1fr);
     max-width: 520px;
-    gap: 20px;
+    gap: var(--space-5);
   }
 
   .sl-card {
-    padding: 32px 18px 26px;
-    gap: 8px;
+    padding: var(--space-8) var(--space-4) var(--space-6);
+    gap: var(--space-3);
     border-radius: 24px;
   }
 
@@ -198,11 +229,12 @@
     transform: translateY(-6px) scale(1.02);
     box-shadow:
       0 10px 0 rgba(0, 0, 0, 0.05),
-      0 16px 36px rgba(0, 0, 0, 0.15);
+      var(--shadow-float);
   }
 
-  .sl-card-emoji {
-    font-size: 3.2rem;
+  .sl-card-icon {
+    width: 40px !important;
+    height: 40px !important;
   }
 
   .sl-card-title {

@@ -1,37 +1,65 @@
+import { illo } from '../../theme/tokens'
+
 export function IceCreamTruck() {
   return (
     <svg viewBox="0 0 260 200" className="ics-svg-truck">
-      {/* Truck body */}
-      <rect x="20" y="40" width="220" height="110" rx="12" fill="#f8bbd0" stroke="#e91e63" strokeWidth="3" />
-      <rect x="20" y="40" width="220" height="36" rx="12" fill="#e91e63" />
-      <rect x="20" y="64" width="220" height="12" fill="#e91e63" />
-      {/* Scalloped awning */}
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-        <circle key={i} cx={40 + i * 28} cy="42" r="16" fill={i % 2 === 0 ? '#fff' : '#e91e63'} />
-      ))}
-      {/* Window */}
-      <rect x="50" y="80" width="160" height="50" rx="8" fill="#e3f2fd" stroke="#1976d2" strokeWidth="2" />
-      <rect x="50" y="80" width="160" height="12" rx="6" fill="#bbdefb" />
-      {/* Sign text */}
-      <text x="130" y="58" textAnchor="middle" fontWeight="800" fontSize="14" fill="white" fontFamily="Arial, sans-serif">ICE CREAM</text>
-      {/* Ice cream decorations on top */}
-      <circle cx="80" cy="30" r="10" fill="#ffcc80" />
-      <circle cx="80" cy="22" r="8" fill="#fff9c4" />
-      <polygon points="74,30 86,30 80,48" fill="#d7ccc8" />
-      <circle cx="180" cy="30" r="10" fill="#f48fb1" />
-      <circle cx="180" cy="22" r="8" fill="#fce4ec" />
-      <polygon points="174,30 186,30 180,48" fill="#d7ccc8" />
-      {/* Serving counter */}
-      <rect x="50" y="135" width="160" height="10" rx="3" fill="#8d6e63" />
-      {/* Wheels */}
-      <circle cx="70" cy="160" r="18" fill="#424242" />
-      <circle cx="70" cy="160" r="10" fill="#757575" />
-      <circle cx="70" cy="160" r="4" fill="#bdbdbd" />
-      <circle cx="190" cy="160" r="18" fill="#424242" />
-      <circle cx="190" cy="160" r="10" fill="#757575" />
-      <circle cx="190" cy="160" r="4" fill="#bdbdbd" />
-      {/* Bumper */}
-      <rect x="15" y="148" width="230" height="8" rx="4" fill="#e91e63" />
+      <defs>
+        <linearGradient id="ics-truck-body" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#fce4ec" />
+          <stop offset="100%" stopColor="#f8bbd0" />
+        </linearGradient>
+        <linearGradient id="ics-truck-awning" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#d81b60" />
+          <stop offset="100%" stopColor="#ec407a" />
+        </linearGradient>
+        <filter id="ics-truck-shadow" x="-15%" y="-15%" width="130%" height="130%">
+          <feDropShadow dx="0" dy="4" stdDeviation="4" floodOpacity="0.22" />
+        </filter>
+      </defs>
+      <g filter="url(#ics-truck-shadow)">
+        {/* Truck body */}
+        <rect x="20" y="40" width="220" height="110" rx="12" fill="url(#ics-truck-body)" stroke={illo.stroke} strokeWidth="2.5" />
+        <rect x="20" y="40" width="220" height="36" rx="12" fill="url(#ics-truck-awning)" />
+        <rect x="20" y="64" width="220" height="12" fill="#c2185b" />
+        {/* Scalloped awning */}
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+          <circle key={i} cx={40 + i * 28} cy="42" r="16" fill={i % 2 === 0 ? '#fffef7' : '#e91e63'} stroke={illo.strokeSoft} strokeWidth="0.5" />
+        ))}
+        {/* Window */}
+        <rect x="50" y="80" width="160" height="50" rx="8" fill="#e3f2fd" stroke="#1976d2" strokeWidth="2" />
+        <rect x="50" y="80" width="160" height="12" rx="6" fill="#bbdefb" />
+        {/* Sign — Hebrew only */}
+        <text
+          x="130"
+          y="58"
+          textAnchor="middle"
+          fontWeight="800"
+          fontSize="15"
+          fill="white"
+          fontFamily="system-ui, 'Segoe UI', 'Noto Sans Hebrew', sans-serif"
+          style={{ textShadow: '0 1px 2px rgba(0,0,0,0.25)' }}
+        >
+          גלידה
+        </text>
+        {/* Ice cream decorations on top */}
+        <circle cx="80" cy="30" r="10" fill="#ffcc80" />
+        <circle cx="80" cy="22" r="8" fill="#fff9c4" />
+        <polygon points="74,30 86,30 80,48" fill="#d7ccc8" />
+        <circle cx="180" cy="30" r="10" fill="#f48fb1" />
+        <circle cx="180" cy="22" r="8" fill="#fce4ec" />
+        <polygon points="174,30 186,30 180,48" fill="#d7ccc8" />
+        {/* Serving counter */}
+        <rect x="50" y="135" width="160" height="10" rx="3" fill="#8d6e63" />
+        {/* Wheels */}
+        <circle cx="70" cy="160" r="18" fill="#424242" />
+        <circle cx="70" cy="160" r="10" fill="#757575" />
+        <circle cx="70" cy="160" r="4" fill="#bdbdbd" />
+        <circle cx="190" cy="160" r="18" fill="#424242" />
+        <circle cx="190" cy="160" r="10" fill="#757575" />
+        <circle cx="190" cy="160" r="4" fill="#bdbdbd" />
+        {/* Bumper */}
+        <rect x="15" y="148" width="230" height="8" rx="4" fill="#e91e63" />
+      </g>
     </svg>
   )
 }
@@ -65,12 +93,12 @@ export function CartoonKid({ kidIndex = 0 }) {
       {/* Eyes */}
       <circle cx="33" cy="36" r="4" fill="white" />
       <circle cx="47" cy="36" r="4" fill="white" />
-      <circle cx="34" cy="36" r="2.5" fill="#333" />
-      <circle cx="48" cy="36" r="2.5" fill="#333" />
+      <circle cx="34" cy="36" r="2.5" fill={illo.illustrationInk} />
+      <circle cx="48" cy="36" r="2.5" fill={illo.illustrationInk} />
       <circle cx="34.5" cy="35.5" r="0.8" fill="white" />
       <circle cx="48.5" cy="35.5" r="0.8" fill="white" />
       {/* Smile */}
-      <path d="M 33 44 Q 40 52 47 44" stroke="#333" strokeWidth="2" fill="none" strokeLinecap="round" />
+      <path d="M 33 44 Q 40 52 47 44" stroke={illo.illustrationInk} strokeWidth="2" fill="none" strokeLinecap="round" />
       {/* Cheeks */}
       <circle cx="27" cy="42" r="4" fill="#ffab91" opacity="0.5" />
       <circle cx="53" cy="42" r="4" fill="#ffab91" opacity="0.5" />
@@ -151,10 +179,10 @@ export function Seller() {
       {/* Eyes */}
       <circle cx="29" cy="27" r="3" fill="white" />
       <circle cx="41" cy="27" r="3" fill="white" />
-      <circle cx="29.5" cy="27" r="2" fill="#333" />
-      <circle cx="41.5" cy="27" r="2" fill="#333" />
+      <circle cx="29.5" cy="27" r="2" fill={illo.illustrationInk} />
+      <circle cx="41.5" cy="27" r="2" fill={illo.illustrationInk} />
       {/* Smile */}
-      <path d="M 29 34 Q 35 40 41 34" stroke="#333" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <path d="M 29 34 Q 35 40 41 34" stroke={illo.illustrationInk} strokeWidth="1.5" fill="none" strokeLinecap="round" />
       {/* Mustache */}
       <path d="M 30 32 Q 35 30 40 32" stroke="#5d4037" strokeWidth="2" fill="none" strokeLinecap="round" />
       {/* Cheeks */}
@@ -182,10 +210,10 @@ export function WalkingKid({ kidIndex = 0 }) {
       {/* Eyes */}
       <circle cx="24" cy="28" r="3" fill="white" />
       <circle cx="36" cy="28" r="3" fill="white" />
-      <circle cx="24.5" cy="28" r="2" fill="#333" />
-      <circle cx="36.5" cy="28" r="2" fill="#333" />
+      <circle cx="24.5" cy="28" r="2" fill={illo.illustrationInk} />
+      <circle cx="36.5" cy="28" r="2" fill={illo.illustrationInk} />
       {/* Smile */}
-      <path d="M 24 36 Q 30 42 36 36" stroke="#333" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <path d="M 24 36 Q 30 42 36 36" stroke={illo.illustrationInk} strokeWidth="1.5" fill="none" strokeLinecap="round" />
       {/* Hair */}
       <path d="M 12 28 Q 12 10 30 10 Q 48 10 48 28" fill={config.hair} />
     </svg>

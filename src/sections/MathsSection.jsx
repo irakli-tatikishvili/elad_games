@@ -1,13 +1,14 @@
 import { Routes, Route, Link } from 'react-router-dom'
+import { Calculator, Apple, IceCream, Cherry } from 'lucide-react'
 import CountTheObjects from '../games/maths/CountTheObjects'
 import IceCreamSeller from '../games/maths/IceCreamSeller'
 import StrawberryLion from '../games/maths/StrawberryLion'
 import './SectionLayout.css'
 
 const games = [
-  { path: 'count-the-objects', title: 'Count the Objects', desc: 'How many do you see?', emoji: '🍎', component: CountTheObjects },
-  { path: 'ice-cream-seller', title: 'Ice Cream Seller', desc: 'Serve ice cream to kids!', emoji: '🍦', component: IceCreamSeller },
-  { path: 'strawberry-lion', title: 'Strawberry Lion', desc: 'Feed the hungry lion!', emoji: '🦁', component: StrawberryLion },
+  { path: 'count-the-objects', title: 'Count the Objects', desc: 'How many do you see?', Icon: Apple, component: CountTheObjects },
+  { path: 'ice-cream-seller', title: 'Ice Cream Seller', desc: 'Serve ice cream to kids!', Icon: IceCream, component: IceCreamSeller },
+  { path: 'strawberry-lion', title: 'Strawberry Lion', desc: 'Feed the hungry lion!', Icon: Cherry, component: StrawberryLion },
 ]
 
 const theme = {
@@ -36,13 +37,16 @@ function MathsSectionHome() {
 
       <div className="sl-content">
         <div className="sl-header">
-          <span className="sl-header-icon">🔢</span>
+          <span className="sl-header-icon sl-header-icon--illustrated">
+            <Calculator className="sl-header-icon-svg" size={32} strokeWidth={2.25} aria-hidden />
+            <span className="sl-header-icon-label">123</span>
+          </span>
           <h1 className="sl-title">Maths Learning</h1>
           <p className="sl-subtitle">Numbers &amp; Counting</p>
         </div>
 
         <div className="sl-grid">
-          {games.map(({ path, title, desc, emoji }, i) => (
+          {games.map(({ path, title, desc, Icon }, i) => (
             <Link
               key={path}
               to={path}
@@ -50,10 +54,13 @@ function MathsSectionHome() {
               style={{
                 '--card-gradient': theme.cardGradient,
                 '--card-shadow': theme.shadow,
+                '--sl-icon-color': theme.accent,
                 animationDelay: `${0.1 + i * 0.08}s`,
               }}
             >
-              <span className="sl-card-emoji">{emoji}</span>
+              <span className="sl-card-icon-wrap">
+                <Icon className="sl-card-icon" size={36} strokeWidth={2.25} aria-hidden />
+              </span>
               <span className="sl-card-title">{title}</span>
               <span className="sl-card-desc">{desc}</span>
             </Link>

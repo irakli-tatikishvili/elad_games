@@ -19,13 +19,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 12px;
-  background: var(--color-card);
-  border-radius: 12px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--game-chrome-bg);
+  border-radius: var(--game-chrome-radius);
   color: var(--color-primary);
   font-weight: 600;
+  font-size: var(--text-caption);
   text-decoration: none;
-  box-shadow: var(--shadow);
+  box-shadow: var(--game-chrome-shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   touch-action: manipulation;
 }
 

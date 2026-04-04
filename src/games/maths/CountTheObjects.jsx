@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BigButton from '../../components/BigButton'
+import GamePicture from '../../components/GamePicture'
+import SuccessKid from '../../components/SuccessKid'
 import './CountTheObjects.css'
 
 const IMAGE_BASE = '/images/maths/count-the-objects'
@@ -38,7 +40,7 @@ function ObjectIcon({ objectSet }) {
   }
   return (
     <span className="cto-item">
-      <img src={objectSet.image} alt={objectSet.name} onError={() => setUseFallback(true)} />
+      <GamePicture pngUrl={objectSet.image} alt={objectSet.name} onError={() => setUseFallback(true)} />
     </span>
   )
 }
@@ -67,13 +69,13 @@ function CountTheObjects() {
       <div className="cto-bg-bottom" />
       <div className="cto-bg-dots" />
 
-      <Link to="/maths" className="cto-back">← Back</Link>
+      <Link to="/maths" className="cto-back app-game-back">← חזרה</Link>
 
       <div className="cto-content">
         <div className="cto-prompt-card">
-          <p className="cto-prompt">How many</p>
+          <p className="cto-prompt">כמה</p>
           <span className="cto-prompt-object">{objectSet.emoji}</span>
-          <p className="cto-prompt">can you see?</p>
+          <p className="cto-prompt">אתה רואה?</p>
         </div>
 
         <div className="cto-display">
@@ -111,23 +113,19 @@ function CountTheObjects() {
           })}
         </div>
 
+        {feedback === 'correct' && <SuccessKid />}
         {feedback === 'correct' && (
           <div className="cto-feedback cto-feedback--success">
-            <div className="cto-stars">
-              <span style={{ animationDelay: '0s' }}>⭐</span>
-              <span style={{ animationDelay: '0.15s' }}>🌟</span>
-              <span style={{ animationDelay: '0.3s' }}>⭐</span>
-            </div>
-            <p className="cto-feedback-text">Good job!</p>
-            <BigButton onClick={playAgain} variant="success">Next round</BigButton>
+            <p className="cto-feedback-text">כל הכבוד!</p>
+            <BigButton onClick={playAgain} variant="success">סיבוב הבא</BigButton>
           </div>
         )}
         {feedback === 'wrong' && (
           <div className="cto-feedback cto-feedback--wrong">
             <p className="cto-feedback-text">
-              There {count === 1 ? 'is' : 'are'} {count} {objectSet.emoji}
+              יש {count} {objectSet.emoji}
             </p>
-            <BigButton onClick={playAgain}>Try again</BigButton>
+            <BigButton onClick={playAgain}>נסה שוב</BigButton>
           </div>
         )}
       </div>

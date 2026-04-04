@@ -1,0 +1,21 @@
+{
+  "home": ["/images/home/homepage.png"],
+  "hebrew": {
+    "draw-the-letter": [
+      "lion.png", "banana.png", "camel.png", "fish.png", "mountain.png", "rose.png", "zebra.png",
+      "cat.png", "phone.png", "boy.png", "dog.png", "heart.png", "umbrella.png", "ant.png",
+      "horse.png", "cake.png", "elephant.png", "turtle.png", "monkey.png", "train.png", "sun.png", "apple.png"
+    ],
+    "first-letter": ["cat.png", "dog.png", "sun.png", "star.png", "bear.png", "elephant.png", "apple.png", "house.png"],
+    "build-the-word": ["house.png", "bear.png", "sun.png", "cat.png", "dog.png", "elephant.png"],
+    "tap-the-letter": [],
+    "letter-animal-cards": "uses draw-the-letter assets where listed in letterAnimalCardsData.js"
+  },
+  "maths": {
+    "count-the-objects": ["apple.png", "banana.png", "star.png", "ball.png", "flower.png"],
+    "ice-cream-seller": ["ice-cream.png"]
+  },
+  "english": {
+    "match-the-word": ["cat.png", "dog.png", "sun.png", "star.png"]
+  }
+}

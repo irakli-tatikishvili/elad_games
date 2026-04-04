@@ -1,5 +1,7 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useId } from 'react'
 import { Link } from 'react-router-dom'
+import { illo } from '../../theme/tokens'
+import SuccessKid from '../../components/SuccessKid'
 import './StrawberryLion.css'
 
 function LionSVG({ mood }) {
@@ -8,21 +10,26 @@ function LionSVG({ mood }) {
   const isHappy = mood === 'happy'
 
   const bodyColor = '#d4920b'
-  const maneColor = '#a06400'
   const bellyColor = '#f5d77a'
 
   return (
     <svg viewBox="0 0 200 220" className="sl-lion-svg">
+      <defs>
+        <radialGradient id="sl-lion-mane" cx="45%" cy="35%">
+          <stop offset="0%" stopColor="#c47f00" />
+          <stop offset="100%" stopColor="#7a4a00" />
+        </radialGradient>
+      </defs>
       {/* Mane */}
-      <ellipse cx="100" cy="105" rx="75" ry="72" fill={maneColor} />
-      <circle cx="40" cy="70" r="18" fill={maneColor} />
-      <circle cx="55" cy="45" r="18" fill={maneColor} />
-      <circle cx="85" cy="35" r="18" fill={maneColor} />
-      <circle cx="115" cy="35" r="18" fill={maneColor} />
-      <circle cx="145" cy="45" r="18" fill={maneColor} />
-      <circle cx="160" cy="70" r="18" fill={maneColor} />
-      <circle cx="160" cy="100" r="16" fill={maneColor} />
-      <circle cx="40" cy="100" r="16" fill={maneColor} />
+      <ellipse cx="100" cy="105" rx="75" ry="72" fill="url(#sl-lion-mane)" />
+      <circle cx="40" cy="70" r="18" fill="url(#sl-lion-mane)" />
+      <circle cx="55" cy="45" r="18" fill="url(#sl-lion-mane)" />
+      <circle cx="85" cy="35" r="18" fill="url(#sl-lion-mane)" />
+      <circle cx="115" cy="35" r="18" fill="url(#sl-lion-mane)" />
+      <circle cx="145" cy="45" r="18" fill="url(#sl-lion-mane)" />
+      <circle cx="160" cy="70" r="18" fill="url(#sl-lion-mane)" />
+      <circle cx="160" cy="100" r="16" fill="url(#sl-lion-mane)" />
+      <circle cx="40" cy="100" r="16" fill="url(#sl-lion-mane)" />
 
       {/* Face */}
       <ellipse cx="100" cy="108" rx="56" ry="52" fill={bodyColor} />
@@ -43,16 +50,16 @@ function LionSVG({ mood }) {
       <ellipse cx="122" cy="95" rx="10" ry={isHappy ? 3 : isFull ? 6 : 10} fill="white" />
       {!isHappy && (
         <>
-          <circle cx="80" cy={isFull ? 94 : 97} r="5" fill="#333" />
-          <circle cx="124" cy={isFull ? 94 : 97} r="5" fill="#333" />
+          <circle cx="80" cy={isFull ? 94 : 97} r="5" fill={illo.illustrationInk} />
+          <circle cx="124" cy={isFull ? 94 : 97} r="5" fill={illo.illustrationInk} />
           <circle cx="81" cy={isFull ? 92 : 95} r="1.5" fill="white" />
           <circle cx="125" cy={isFull ? 92 : 95} r="1.5" fill="white" />
         </>
       )}
       {isHappy && (
         <>
-          <path d="M70,95 Q78,88 86,95" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M114,95 Q122,88 130,95" fill="none" stroke="#333" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M70,95 Q78,88 86,95" fill="none" stroke={illo.illustrationInk} strokeWidth={illo.strokeWidth} strokeLinecap="round" />
+          <path d="M114,95 Q122,88 130,95" fill="none" stroke={illo.illustrationInk} strokeWidth={illo.strokeWidth} strokeLinecap="round" />
         </>
       )}
 
@@ -67,9 +74,13 @@ function LionSVG({ mood }) {
       {isFull && (
         <>
           <path d="M88,125 Q100,118 112,125" fill="none" stroke="#6d3b00" strokeWidth="2.5" strokeLinecap="round" />
-          {/* Dizzy swirls */}
-          <text x="60" y="80" fontSize="14" className="sl-lion-dizzy">💫</text>
-          <text x="128" y="80" fontSize="14" className="sl-lion-dizzy" style={{ animationDelay: '0.3s' }}>💫</text>
+          {/* Dizzy sparkles (vector, no emoji) */}
+          <g className="sl-lion-dizzy">
+            <path d="M58,76 L61,80 L64,76 L61,72 Z" fill="#90caf9" opacity="0.95" />
+          </g>
+          <g className="sl-lion-dizzy sl-lion-dizzy--late">
+            <path d="M134,76 L137,80 L140,76 L137,72 Z" fill="#90caf9" opacity="0.85" />
+          </g>
         </>
       )}
       {isHappy && (
@@ -99,9 +110,17 @@ function LionSVG({ mood }) {
   )
 }
 
-function StrawberrySVG({ size = 48 }) {
+export function StrawberrySVG({ size = 48 }) {
+  const gid = useId().replace(/:/g, '')
+  const shineId = `strawberry-shine-${gid}`
   return (
-    <svg viewBox="0 0 40 48" width={size} height={size * 1.2}>
+    <svg viewBox="0 0 40 48" width={size} height={size * 1.2} className="sbl-strawberry-svg">
+      <defs>
+        <radialGradient id={shineId} cx="35%" cy="30%">
+          <stop offset="0%" stopColor="white" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="white" stopOpacity="0" />
+        </radialGradient>
+      </defs>
       {/* Stem */}
       <path d="M16,8 Q20,2 24,8" fill="none" stroke="#2e7d32" strokeWidth="2" />
       {/* Leaves */}
@@ -110,7 +129,7 @@ function StrawberrySVG({ size = 48 }) {
       <path d="M20,10 Q20,2 20,10" fill="#388e3c" />
       {/* Berry */}
       <ellipse cx="20" cy="28" rx="14" ry="17" fill="#e53935" />
-      <ellipse cx="20" cy="28" rx="14" ry="17" fill="url(#strawberry-shine)" />
+      <ellipse cx="20" cy="28" rx="14" ry="17" fill={`url(#${shineId})`} />
       {/* Seeds */}
       <ellipse cx="14" cy="22" rx="1.2" ry="1.5" fill="#ffcdd2" transform="rotate(-15,14,22)" />
       <ellipse cx="26" cy="22" rx="1.2" ry="1.5" fill="#ffcdd2" transform="rotate(15,26,22)" />
@@ -120,12 +139,6 @@ function StrawberrySVG({ size = 48 }) {
       <ellipse cx="16" cy="35" rx="1.2" ry="1.5" fill="#ffcdd2" />
       <ellipse cx="24" cy="35" rx="1.2" ry="1.5" fill="#ffcdd2" />
       <ellipse cx="20" cy="40" rx="1.2" ry="1.5" fill="#ffcdd2" />
-      <defs>
-        <radialGradient id="strawberry-shine" cx="35%" cy="30%">
-          <stop offset="0%" stopColor="white" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="white" stopOpacity="0" />
-        </radialGradient>
-      </defs>
     </svg>
   )
 }
@@ -140,6 +153,7 @@ function StrawberryLion() {
   const [mood, setMood] = useState('asking')
   const [flyingBerries, setFlyingBerries] = useState([])
   const [message, setMessage] = useState('')
+  const flyIdRef = useRef(0)
 
   const totalBerries = 8
 
@@ -149,20 +163,22 @@ function StrawberryLion() {
     const newFed = fed + 1
     setFed(newFed)
 
-    setFlyingBerries((prev) => [...prev, { id: Date.now(), index }])
+    flyIdRef.current += 1
+    const flyId = flyIdRef.current
+    setFlyingBerries((prev) => [...prev, { id: flyId, index }])
     setTimeout(() => {
-      setFlyingBerries((prev) => prev.filter((b) => b.id !== Date.now()))
+      setFlyingBerries((prev) => prev.filter((b) => b.id !== flyId))
     }, 600)
 
     if (newFed === target) {
       setMood('eating')
       setTimeout(() => {
         setMood('happy')
-        setMessage('Yummy! Thank you! 😋')
+        setMessage('טעים! תודה!')
       }, 500)
     } else if (newFed > target) {
       setMood('full')
-      setMessage("That's too many! I'm full! 🤢")
+      setMessage('יותר מדי! אני שבע מדי!')
     } else {
       setMood('eating')
       setTimeout(() => setMood('asking'), 400)
@@ -199,20 +215,22 @@ function StrawberryLion() {
       <div className="sbl-cloud sbl-cloud--2" />
       <div className="sbl-cloud sbl-cloud--3" />
 
-      <Link to="/maths" className="sbl-back">← Back</Link>
+      <Link to="/maths" className="sbl-back app-game-back">← חזרה</Link>
 
       <div className="sbl-content">
         {/* Speech bubble */}
         <div className={`sbl-speech ${mood === 'full' || mood === 'happy' ? 'sbl-speech--result' : ''}`}>
           {mood === 'asking' || mood === 'eating' ? (
             <p className="sbl-speech-text">
-              I want <span className="sbl-speech-num">{target}</span> strawberr{target === 1 ? 'y' : 'ies'}!
+              אני רוצה{' '}
+              <span className="sbl-speech-num">{target}</span>
+              {target === 1 ? ' תות' : ' תותים'}!
             </p>
           ) : (
             <p className="sbl-speech-text">{message}</p>
           )}
           {(mood === 'asking' || mood === 'eating') && fed > 0 && remaining > 0 && (
-            <p className="sbl-speech-sub">{remaining} more please!</p>
+            <p className="sbl-speech-sub">עוד {remaining} בבקשה!</p>
           )}
         </div>
 
@@ -222,7 +240,9 @@ function StrawberryLion() {
           {/* Fed counter */}
           <div className="sbl-fed-counter">
             {Array.from({ length: fed }, (_, i) => (
-              <span key={i} className="sbl-fed-berry">🍓</span>
+              <span key={i} className="sbl-fed-berry" aria-hidden>
+                <StrawberrySVG size={18} />
+              </span>
             ))}
           </div>
         </div>
@@ -230,7 +250,7 @@ function StrawberryLion() {
         {/* Strawberry patch */}
         {mood !== 'happy' && mood !== 'full' && (
           <div className="sbl-patch">
-            <p className="sbl-patch-label">Tap a strawberry to feed the lion!</p>
+            <p className="sbl-patch-label">לחצו על תות להאכיל את האריה!</p>
             <div className="sbl-berries">
               {berrySlots.map((i) => {
                 const isFed = i < fed
@@ -251,15 +271,11 @@ function StrawberryLion() {
         )}
 
         {/* Result actions */}
+        {mood === 'happy' && <SuccessKid />}
         {mood === 'happy' && (
           <div className="sbl-result">
-            <div className="sbl-stars">
-              <span style={{ animationDelay: '0s' }}>⭐</span>
-              <span style={{ animationDelay: '0.15s' }}>🌟</span>
-              <span style={{ animationDelay: '0.3s' }}>⭐</span>
-            </div>
             <button type="button" className="sbl-btn sbl-btn--next" onClick={handleNext}>
-              Next round! 🦁
+              סיבוב הבא!
             </button>
           </div>
         )}
@@ -267,7 +283,7 @@ function StrawberryLion() {
         {mood === 'full' && (
           <div className="sbl-result">
             <button type="button" className="sbl-btn sbl-btn--retry" onClick={handleRetry}>
-              Try again 🔄
+              נסה שוב
             </button>
           </div>
         )}
@@ -275,7 +291,9 @@ function StrawberryLion() {
 
       {/* Flying strawberry animations */}
       {flyingBerries.map((b) => (
-        <div key={b.id} className="sbl-flying-berry">🍓</div>
+        <div key={b.id} className="sbl-flying-berry" aria-hidden>
+          <StrawberrySVG size={36} />
+        </div>
       ))}
     </div>
   )

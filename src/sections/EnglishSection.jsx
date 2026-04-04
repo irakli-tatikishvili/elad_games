@@ -1,9 +1,10 @@
 import { Routes, Route, Link } from 'react-router-dom'
+import { Languages, ImageIcon } from 'lucide-react'
 import MatchTheWord from '../games/english/MatchTheWord'
 import './SectionLayout.css'
 
 const games = [
-  { path: 'match-the-word', title: 'Match the Word', desc: 'Pick the right word for the picture', emoji: '🖼️', component: MatchTheWord },
+  { path: 'match-the-word', title: 'Match the Word', desc: 'Pick the right word for the picture', Icon: ImageIcon, component: MatchTheWord },
 ]
 
 const theme = {
@@ -32,13 +33,16 @@ function EnglishSectionHome() {
 
       <div className="sl-content">
         <div className="sl-header">
-          <span className="sl-header-icon">ABC</span>
+          <span className="sl-header-icon sl-header-icon--illustrated">
+            <Languages className="sl-header-icon-svg" size={30} strokeWidth={2.25} aria-hidden />
+            <span className="sl-header-icon-label">ABC</span>
+          </span>
           <h1 className="sl-title">English Learning</h1>
           <p className="sl-subtitle">Words &amp; Letters</p>
         </div>
 
         <div className="sl-grid">
-          {games.map(({ path, title, desc, emoji }, i) => (
+          {games.map(({ path, title, desc, Icon }, i) => (
             <Link
               key={path}
               to={path}
@@ -46,10 +50,13 @@ function EnglishSectionHome() {
               style={{
                 '--card-gradient': theme.cardGradient,
                 '--card-shadow': theme.shadow,
+                '--sl-icon-color': theme.accent,
                 animationDelay: `${0.1 + i * 0.08}s`,
               }}
             >
-              <span className="sl-card-emoji">{emoji}</span>
+              <span className="sl-card-icon-wrap">
+                <Icon className="sl-card-icon" size={36} strokeWidth={2.25} aria-hidden />
+              </span>
               <span className="sl-card-title">{title}</span>
               <span className="sl-card-desc">{desc}</span>
             </Link>

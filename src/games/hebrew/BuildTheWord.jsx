@@ -1,6 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import BigButton from '../../components/BigButton'
+import GamePicture from '../../components/GamePicture'
+import SuccessKid from '../../components/SuccessKid'
 import './BuildTheWord.css'
 
 const IMAGE_BASE = '/images/hebrew/build-the-word'
@@ -117,18 +119,18 @@ function BuildTheWord() {
         <span className="btw-shape btw-shape--3">🔤</span>
       </div>
 
-      <Link to="/hebrew" className="btw-back" dir="ltr">← Back</Link>
+      <Link to="/hebrew" className="btw-back app-game-back" dir="ltr">← חזרה</Link>
 
       <div className="btw-content">
         <div className="btw-prompt-card">
           <p className="btw-prompt">בנה את המילה</p>
-          <p className="btw-prompt-en">Drag letters to build the word</p>
+          <p className="btw-prompt-en">גרור אותיות לבניית המילה</p>
         </div>
 
         <div className="btw-item-card">
           <div className="btw-image-frame">
             {!imageError ? (
-              <img src={item.image} alt={item.label} onError={() => setImageError(true)} />
+              <GamePicture pngUrl={item.image} alt={item.label} onError={() => setImageError(true)} />
             ) : null}
             <span className={`btw-emoji-fallback ${imageError ? 'btw-emoji-fallback--visible' : ''}`}>
               {item.emoji}
@@ -161,7 +163,7 @@ function BuildTheWord() {
         </div>
 
         <div className="btw-pool-section">
-          <p className="btw-pool-label">Available letters:</p>
+          <p className="btw-pool-label">אותיות זמינות:</p>
           <div className="btw-pool">
             {currentPool.map((letter, i) => (
               <span
@@ -182,26 +184,21 @@ function BuildTheWord() {
           onClick={resetWord}
           disabled={!!feedback}
         >
-          🔄 Start over
+          התחל מחדש
         </button>
 
+        {feedback === 'correct' && <SuccessKid />}
         {feedback === 'correct' && (
           <div className="btw-feedback btw-feedback--success">
-            <div className="btw-stars">
-              <span style={{ animationDelay: '0s' }}>⭐</span>
-              <span style={{ animationDelay: '0.15s' }}>🌟</span>
-              <span style={{ animationDelay: '0.3s' }}>⭐</span>
-            </div>
             <p className="btw-feedback-text">כל הכבוד!</p>
-            <p className="btw-feedback-sub">Good job!</p>
-            <BigButton onClick={playAgain} variant="success">Next word</BigButton>
+            <BigButton onClick={playAgain} variant="success">מילה הבאה</BigButton>
           </div>
         )}
         {feedback === 'wrong' && (
           <div className="btw-feedback btw-feedback--wrong">
             <p className="btw-feedback-text">נסה שוב!</p>
-            <p className="btw-feedback-sub">The word is {item.hebrewWord}</p>
-            <BigButton onClick={playAgain}>Try again</BigButton>
+            <p className="btw-feedback-sub">המילה: {item.hebrewWord}</p>
+            <BigButton onClick={playAgain}>נסה שוב</BigButton>
           </div>
         )}
       </div>
