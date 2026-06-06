@@ -1,9 +1,10 @@
 import { Routes, Route, Link } from 'react-router-dom'
-import { Calculator, Apple, IceCream, Cherry, Fish } from 'lucide-react'
+import { Calculator, Apple, IceCream, Cherry, Fish, ChevronRight } from 'lucide-react'
 import CountTheObjects from '../games/maths/CountTheObjects'
 import IceCreamSeller from '../games/maths/IceCreamSeller'
 import StrawberryLion from '../games/maths/StrawberryLion'
 import FishEatsBread from '../games/maths/FishEatsBread'
+import CrocodileEats from '../games/maths/CrocodileEats'
 import './SectionLayout.css'
 
 const games = [
@@ -11,6 +12,7 @@ const games = [
   { path: 'ice-cream-seller', title: 'Ice Cream Seller', desc: 'Serve ice cream to kids!', Icon: IceCream, component: IceCreamSeller },
   { path: 'strawberry-lion', title: 'Strawberry Lion', desc: 'Feed the hungry lion!', Icon: Cherry, component: StrawberryLion },
   { path: 'fish-eats-bread', title: 'דג אוכל לחם', desc: 'האכילו את הדג!', Icon: Fish, component: FishEatsBread },
+  { path: 'crocodile-eats', title: 'תנין רעב', desc: 'מי גדול יותר?', Icon: ChevronRight, component: CrocodileEats },
 ]
 
 const theme = {
